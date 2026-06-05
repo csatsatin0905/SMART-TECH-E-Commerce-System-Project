@@ -126,10 +126,9 @@
 
 .cart-table th:last-child {
   text-align: right;
-  padding-right: 28px;   /* Extra space on the right edge */
+  padding-right: 28px;  
 }
 
-/* Table Data Cells */
 .cart-table td {
   padding: 20px 16px;
   border-bottom: 1px solid #f0e6ff;
@@ -140,7 +139,7 @@
 .cart-table td.total-price {
   text-align: right;
   font-weight: 600;
-  padding-right: 28px;     /* Increased right padding */
+  padding-right: 28px;     
 }
 
 .cart-table td.qty-col {
@@ -162,7 +161,6 @@
   padding: 8px;
 }
 
-/* Info Sections (Payment & Arrival) */
 .info-section {
   background: white;
   border-radius: 12px;

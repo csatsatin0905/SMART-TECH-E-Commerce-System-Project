@@ -11,7 +11,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #f3e8ff; /* Light purple background */
+    background-color: #f3e8ff; 
     color: #1f2937;
     position: relative;
     overflow: hidden; 

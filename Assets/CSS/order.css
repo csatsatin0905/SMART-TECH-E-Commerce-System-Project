@@ -12,7 +12,6 @@
   margin-bottom: 30px;
 }
 
-/* Main Table Container box styling */
 .orders-container {
   background: white;
   border-radius: 16px;
@@ -30,7 +29,6 @@
   background: #f8f5ff;
 }
 
-/* Base headers to center-align automatically to mirror column layouts */
 .orders-table th {
   padding: 18px 24px;
   text-align: center;
@@ -41,7 +39,7 @@
 }
 
 /* Column Dimensions configuration */
-.orders-table th:nth-child(1) { width: 42%; text-align: center; } /* Keep Product title left aligned */
+.orders-table th:nth-child(1) { width: 42%; text-align: center; } 
 .orders-table th:nth-child(2) { width: 12%; }
 .orders-table th:nth-child(3) { width: 8%; }
 .orders-table th:nth-child(4) { width: 10%; }
@@ -157,12 +155,12 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.4); /* Smooth dim blur effect */
+  background-color: rgba(0, 0, 0, 0.4); 
   backdrop-filter: blur(4px);
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 2000; /* Stays above navbar layout layer */
+  z-index: 2000; 
   opacity: 0;
   pointer-events: none;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -190,7 +188,6 @@
   transform: translateY(0) scale(1);
 }
 
-/* Header Sections inside popup card */
 .modal-header {
   display: flex;
   justify-content: space-between;
@@ -219,7 +216,6 @@
   color: #6B21A8;
 }
 
-/* Modal Core Input Fields Body Layout */
 .modal-body {
   display: flex;
   flex-direction: column;
@@ -236,7 +232,6 @@
   line-height: 1.4;
 }
 
-/* Star selection block alignment */
 .rating-picker label,
 .comment-field-container label {
   display: block;
@@ -253,7 +248,7 @@
 
 .rating-picker .stars i {
   font-size: 1.6rem;
-  color: #fbbf24; /* Golden star palette blend */
+  color: #fbbf24; 
   cursor: pointer;
   transition: transform 0.2s ease;
 }
@@ -282,7 +277,6 @@
   box-shadow: 0 0 0 4px rgba(107, 33, 168, 0.08);
 }
 
-/* Action Trigger Footers wrapper block layout rules */
 .modal-footer {
   display: flex;
   justify-content: flex-end;

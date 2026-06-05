@@ -46,13 +46,13 @@
   color: #1f2937;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
   transition: all 0.3s ease;
-  border: 2px solid transparent;     /* Important for hover effect */
+  border: 2px solid transparent;    
 }
 
 .category-card:hover {
   transform: translateY(-8px);
   box-shadow: 0 20px 30px rgba(78, 11, 153, 0.15);
-  border-color: #4E0B99;             /* Purple border on hover */
+  border-color: #4E0B99;            
 }
 
 .category-card img {
