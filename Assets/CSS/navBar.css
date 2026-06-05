@@ -1,0 +1,140 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  background-color: #f8f5ff;
+  color: #1f2937;
+  overflow-y: scroll;
+}
+
+/* ==================== NAVBAR - CONSISTENT ACROSS ALL PAGES ==================== */
+.navbar {
+  background: white;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.nav-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 1rem 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  font-size: 2.25rem;
+  font-weight: 700;
+  color: #4E0B99;
+}
+
+/* Search */
+.search-container {
+  position: relative;
+  width: 380px;
+}
+
+.search-icon {
+  position: absolute;
+  left: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #7c3aed;
+  font-size: 1.1rem;
+}
+
+.search-input {
+  width: 100%;
+  padding: 12px 20px 12px 52px;
+  border: none;
+  border-radius: 50px;
+  font-size: 1.02rem;
+  background: #f3e8ff;
+  outline: none;
+}
+
+.search-input:focus {
+  background: white;
+  box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.15);
+}
+
+/* Nav Links */
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 2.4rem;
+  font-weight: 500;
+  font-size: 1.05rem;
+}
+
+.nav-links a {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: #374151;
+  position: relative;
+  padding: 8px 0;
+  transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+  color: #4E0B99;
+}
+
+/* Active Link Style */
+.nav-links a.active {
+  color: #4E0B99;
+  font-weight: 600;
+}
+
+/* Underline Effect */
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -3px;
+  left: 0;
+  width: 0;
+  height: 3px;
+  background: #4E0B99;
+  transition: width 0.4s ease;
+  border-radius: 3px;
+}
+
+.nav-links a:hover::after,
+.nav-links a.active::after {
+  width: 100%;
+}
+
+.nav-links a:has(.profile-icon) {
+  padding: 0;
+}
+
+.nav-links a:has(.profile-icon)::after {
+  display: none;
+}
+
+.profile-icon {
+  width: 42px;
+  height: 42px;
+  background: #4E0B99;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.profile-icon:hover {
+  background: #3b0764;
+  transform: scale(1.1);
+}
+

@@ -1,0 +1,9 @@
+ .cust-av-lg { width: 40px; height: 40px; border-radius: 50%; background: #f3e8ff; color: #4E0B99; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 700; flex-shrink: 0; }
+    .cust-name  { font-size: 13px; font-weight: 600; color: #1f2937; }
+    .cust-email { font-size: 11px; color: #9ca3af; margin-top: 1px; }
+    .toggle-btn { width: 44px; height: 24px; border-radius: 12px; border: none; cursor: pointer; position: relative; transition: background 0.3s; }
+    .toggle-btn.on  { background: #4E0B99; }
+    .toggle-btn.off { background: #d1d5db; }
+    .toggle-btn::after { content: ''; width: 18px; height: 18px; background: white; border-radius: 50%; position: absolute; top: 3px; transition: left 0.3s; }
+    .toggle-btn.on::after  { left: 23px; }
+    .toggle-btn.off::after { left: 3px; }
