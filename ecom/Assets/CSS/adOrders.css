@@ -1,0 +1,18 @@
+ .status-select {
+      padding: 5px 10px;
+      border-radius: 8px;
+      border: 1.5px solid #ede6ff;
+      font-size: 12px;
+      font-weight: 600;
+      background: white;
+      color: #374151;
+      outline: none;
+      cursor: pointer;
+      transition: border 0.2s;
+    }
+    .status-select:focus { border-color: #4E0B99; }
+    .order-id { font-family: monospace; font-size: 12px; color: #6b7280; font-weight: 600; }
+    .customer-cell { display: flex; align-items: center; gap: 10px; }
+    .cust-av { width: 34px; height: 34px; border-radius: 50%; background: #f3e8ff; color: #4E0B99; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; flex-shrink: 0; }
+    .cust-name { font-size: 13px; font-weight: 600; color: #1f2937; }
+    .cust-email { font-size: 11px; color: #9ca3af; }

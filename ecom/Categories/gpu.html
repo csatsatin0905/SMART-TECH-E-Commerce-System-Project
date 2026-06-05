@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GPU (Graphics Card) - Smart Tech</title>
+  
+  <link rel="stylesheet" href="../Assets/CSS/extra-home.css">
+  <link rel="stylesheet" href="../Assets/CSS/navBar.css">
+  <link rel="stylesheet" href="../Assets/CSS/category.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <script src="../Assets/JavaScript/script.js" defer></script>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <h1 class="logo">Smart Tech</h1>
+      
+      <div class="search-container">
+        <i class="fa-solid fa-magnifying-glass search-icon"></i>
+        <input type="text" id="searchInput" onkeyup="searchProduct()" placeholder="Search" class="search-input">
+      </div>
+
+      <div class="nav-links">
+        <a href="../home.html">Home</a>
+        <a href="../shop.html">Shop</a>
+        <a href="../order.html">Order</a>
+        <a href="../cart.html">Cart</a>
+        <a href="../User/profile.html">
+          <div class="profile-icon">
+            <i class="fa-solid fa-user"></i>
+          </div>
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Breadcrumb -->
+  <div class="breadcrumb">
+    <a href="../home.html">HOME</a> 
+    <span class="separator">/</span> 
+    <a href="../shop.html">SHOP</a>
+    <span class="separator">/</span> 
+    <span class="current">GPU (Graphics Card)</span>
+  </div>
+
+  <div class="products-page">
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <h3 class="filter-title">Price Range</h3>
+      
+      <div class="price-range-container">
+        <div class="input-group">
+          <label>Price Minimum</label>
+          <div class="input-wrapper">
+            <span class="peso">₱</span>
+            <input type="number" id="minPrice" placeholder="0" value="0">
+          </div>
+        </div>
+
+        <div class="input-group">
+          <label>Price Maximum</label>
+          <div class="input-wrapper">
+            <span class="peso">₱</span>
+            <input type="number" id="maxPrice" placeholder="50000" value="50000">
+          </div>
+        </div>
+
+        <div class="filter-buttons">
+          <button class="reset-btn" id="resetBtn">
+            <i class="fa-solid fa-rotate-left"></i> Reset
+          </button>
+          <button class="set-btn" id="setBtn">
+            Set Price Range
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Products Content -->
+    <div class="products-content">
+      <h2 class="page-title">GPU (Graphics Card)</h2>
+      
+      <div class="products-grid">
+
+ 
+        <div class="product-card">
+          <a href="../product.html" style="text-decoration:none;color:inherit;">
+            <div class="product-image">
+              <img src="../Assets/pictures/GIGABYTE RTX 4090.jpg" alt="RTX 4090">
+            </div>
+            <div class="product-info">
+              <h3>GIGABYTE GeForce RTX 4091 D 24GB WINDFORCE</h3>
+              <p class="price">₱5,000</p>
+            </div>
+          </a>
+          <div class="product-actions" style="padding: 0 20px 20px;">
+            <button class="add-to-cart-btn" onclick="addToCart()" title="Add to Cart">
+              <i class="fa-solid fa-cart-plus"></i>
+            </button>
+            <a href="../product.html" class="buy-now-btn">Buy Now</a>
+          </div>
+        </div>
+
+        <div class="product-card">
+          <a href="../product.html" style="text-decoration:none;color:inherit;">
+            <div class="product-image">
+              <img src="../Assets/pictures/GIGABYTE RTX 4090.jpg" alt="RTX 4090">
+            </div>
+            <div class="product-info">
+              <h3>GIGABYTE GeForce RTX 4090 D 24GB WINDFORCE</h3>
+              <p class="price">₱5,000</p>
+            </div>
+          </a>
+          <div class="product-actions" style="padding: 0 20px 20px;">
+            <button class="add-to-cart-btn" onclick="addToCart()" title="Add to Cart">
+              <i class="fa-solid fa-cart-plus"></i>
+            </button>
+            <a href="../product.html" class="buy-now-btn">Buy Now</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Added to Cart Popup -->
+  <div id="addedToCartPopup" class="added-popup">
+    <div class="popup-content">
+      <div class="check-circle">
+        <i class="fa-solid fa-check"></i>
+      </div>
+      <h3>ADDED TO CART</h3>
+    </div>
+  </div>
+
+  <script>
+    function addToCart() {
+      const popup = document.getElementById('addedToCartPopup');
+      popup.classList.add('show');
+      setTimeout(() => popup.classList.remove('show'), 2500);
+    }
+
+    // Price range filter
+    document.getElementById('setBtn').addEventListener('click', () => {
+      const min = parseInt(document.getElementById('minPrice').value) || 0;
+      const max = parseInt(document.getElementById('maxPrice').value) || 999999;
+      document.querySelectorAll('.product-card').forEach(card => {
+        const priceText = card.querySelector('.price').textContent.replace(/[₱,]/g, '');
+        const price = parseInt(priceText);
+        card.style.display = (price >= min && price <= max) ? 'flex' : 'none';
+      });
+    });
+
+    document.getElementById('resetBtn').addEventListener('click', () => {
+      document.getElementById('minPrice').value = 0;
+      document.getElementById('maxPrice').value = 50000;
+      document.querySelectorAll('.product-card').forEach(card => card.style.display = 'flex');
+    });
+  </script>
+
+</body>
+</html>

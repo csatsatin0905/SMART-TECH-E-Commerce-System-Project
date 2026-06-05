@@ -1,0 +1,319 @@
+/* Breadcrumb */
+.breadcrumb {
+  max-width: 1400px;
+  margin: 25px auto 0;
+  padding: 0 3rem;
+  font-size: 1.05rem;
+  color: #6b7280;
+}
+
+.breadcrumb a {
+  color: #6b21a8;
+  text-decoration: none;
+}
+
+.separator {
+  margin: 0 8px;
+}
+
+/* ==================== PRODUCT PAGE ==================== */
+.product-page {
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 0 2rem;
+}
+
+.product-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 50px;
+  margin-bottom: 60px;
+}
+
+.product-image-section {
+  background: white;
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+}
+
+.main-image {
+  width: 100%;
+  height: auto;
+  border-radius: 16px;
+  object-fit: contain;
+}
+
+.product-info-section h1 {
+  font-size: 2.1rem;
+  line-height: 1.3;
+  margin-bottom: 15px;
+  color: #1f2937;
+}
+
+.price {
+  font-size: 2.4rem;
+  font-weight: 700;
+  color: #4E0B99;
+  display: block;
+  margin-bottom: 25px;
+}
+
+.short-description {
+  font-size: 1.08rem;
+  color: #374151;
+  margin-bottom: 35px;
+  line-height: 1.75;
+}
+
+/* ==================== OPTIONS==================== */
+.options {
+  display: flex;
+  gap: 40px;
+  margin-bottom: 35px;
+  align-items: flex-end;
+}
+
+.option-group {
+  flex: 1;
+}
+
+.option-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+  color: #374151;
+}
+
+.model-select {
+  padding: 14px 16px;
+  border: 2px solid #e0d4ff;
+  border-radius: 12px;
+  font-size: 1.05rem;
+  background: white;
+  width: 100%;
+}
+
+/* Quantity - Clean Pill */
+.quantity-wrapper {
+  display: flex;
+  align-items: center;
+  background: #f3e8ff;
+  border-radius: 50px;
+  padding: 6px 10px;
+  gap: 8px;
+  width: fit-content;
+}
+
+.qty-btn {
+  width: 42px;
+  height: 42px;
+  background: white;
+  border: none;
+  border-radius: 50%;
+  font-size: 1.5rem;
+  font-weight: 500;
+  cursor: pointer;
+  color: #4E0B99;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s;
+}
+
+.qty-btn:hover {
+  background: #4E0B99;
+  color: white;
+}
+
+.qty-value {
+  min-width: 40px;
+  text-align: center;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+/* Action Buttons */
+.action-buttons {
+  display: flex;
+  gap: 16px;
+  margin-top: 10px;
+}
+
+.buy-now-btn, .add-to-cart-btn {
+  flex: 1;
+  padding: 16px 24px;
+  font-size: 1.15rem;
+  font-weight: 600;
+  border-radius: 12px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.3s;
+  min-height: 56px;
+}
+
+.buy-now-btn {
+  background: #4E0B99;
+  color: white;
+  border: none;
+}
+
+.buy-now-btn:hover {
+  background: #3b0764;
+  transform: translateY(-3px);
+}
+
+.add-to-cart-btn {
+  background: #e0d4ff;
+  color: #4E0B99;
+  border: 2px solid #4E0B99;
+}
+
+.add-to-cart-btn:hover {
+  background: #d8b4fe;
+  color: #3b0764;
+  transform: translateY(-3px);
+}
+
+/* Specs & Reviews Container */
+.specs-section, .reviews-section {
+  background: white;
+  padding: 35px;
+  border-radius: 20px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+  margin-bottom: 40px;
+}
+
+h2 {
+  color: #4E0B99;
+  margin-bottom: 20px;
+  font-size: 1.8rem;
+}
+
+.specs-content {
+  font-size: 1.05rem;
+  line-height: 2;
+  color: #374151;
+  white-space: pre-line;
+}
+
+/* ==================== REVIEWS==================== */
+.review-card {
+  background: #f8f9ff;
+  padding: 24px;
+  border-radius: 16px;
+  margin-bottom: 20px;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.28);
+}
+
+.review-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 12px;
+}
+
+.avatar {
+  width: 52px;
+  height: 52px;
+  background: #4E0B99;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 1.3rem;
+  flex-shrink: 0;
+}
+
+.reviewer-name {
+  font-size: 1.1rem;
+  color: #1f2937;
+}
+
+.review-text {
+  font-size: 1.08rem;
+  color: #374151;
+  line-height: 1.75;
+  margin-left: 68px;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .product-container {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+  
+  .nav-container {
+    padding: 1rem 1.5rem;
+  }
+  
+  .action-buttons {
+    flex-direction: column;
+  }
+}
+
+/* ==================== ADDED TO CART POPUP ==================== */
+.added-popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  opacity: 0;
+  transition: all 0.3s ease;
+}
+
+.added-popup.show {
+  display: flex;
+  opacity: 1;
+}
+
+.popup-content {
+  background: white;
+  padding: 40px 60px;
+  border-radius: 20px;
+  text-align: center;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+  animation: popupPop 0.4s ease;
+}
+
+.check-circle {
+  width: 90px;
+  height: 90px;
+  background: #4E0B99;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px;
+  font-size: 2.8rem;
+}
+
+.popup-content h3 {
+  font-size: 1.45rem;
+  font-weight: 700;
+  color: #1f2937;
+  margin: 0;
+  letter-spacing: 1px;
+}
+
+@keyframes popupPop {
+  0% { transform: scale(0.6); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
