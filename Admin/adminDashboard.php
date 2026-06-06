@@ -17,10 +17,10 @@
     <div class="sb-logo">Smart Tech <span>Admin Panel</span></div>
     <div class="sb-nav">
       <div class="sb-label">Main</div>
-      <a href="adminDashboard.html" class="sb-item active"><i class="fa-solid fa-gauge-high"></i> <span>Dashboard</span></a>
-      <a href="adminProducts.html"  class="sb-item"><i class="fa-solid fa-box"></i> <span>Products</span></a>
-      <a href="adminOrders.html"    class="sb-item"><i class="fa-solid fa-cart-shopping"></i> <span>Orders</span></a>
-      <a href="adminUsers.html"     class="sb-item"><i class="fa-solid fa-users"></i> <span>Customers</span></a>
+      <a href="adminDashboard.php" class="sb-item active"><i class="fa-solid fa-gauge-high"></i> <span>Dashboard</span></a>
+      <a href="adminProducts.php"  class="sb-item"><i class="fa-solid fa-box"></i> <span>Products</span></a>
+      <a href="adminOrders.php"    class="sb-item"><i class="fa-solid fa-cart-shopping"></i> <span>Orders</span></a>
+      <a href="adminUsers.php"     class="sb-item"><i class="fa-solid fa-users"></i> <span>Customers</span></a>
     </div>
     
     <div class="sb-bottom">
@@ -217,7 +217,7 @@
                 <span class="pill pill-pending">Pending</span>
               </div>
             </div>
-            <a href="adminOrders.html" class="view-all-link" style="display:block;text-align:center;font-size:12px;color:#4E0B99;font-weight:600;text-decoration:none;margin-top:16px;">View all orders →</a>
+            <a href="adminOrders.php" class="view-all-link" style="display:block;text-align:center;font-size:12px;color:#4E0B99;font-weight:600;text-decoration:none;margin-top:16px;">View all orders →</a>
           </div>
         </div>
       </div>

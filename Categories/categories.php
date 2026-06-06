@@ -1,34 +1,44 @@
+<?php
+require_once '../Database/runQuery.php';
+$categoryID = $_GET['category_id'] ?? 1; // Default to 1 if not provided
+$sql = "SELECT * FROM products WHERE category_id = ?;";
+$result = runQuery($pdo, $sql, [$categoryID], true);
+
+?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>GPU (Graphics Card) - Smart Tech</title>
-  
+  <title>Smart Tech Products</title>
+
   <link rel="stylesheet" href="../Assets/CSS/extra-home.css">
   <link rel="stylesheet" href="../Assets/CSS/navBar.css">
   <link rel="stylesheet" href="../Assets/CSS/category.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <script src="../Assets/JavaScript/script.js" defer></script>
+  <script src="../Assets/JavaScript/product.js" defer></script>
 </head>
+
 <body>
 
   <!-- Navbar -->
   <nav class="navbar">
     <div class="nav-container">
       <h1 class="logo">Smart Tech</h1>
-      
+
       <div class="search-container">
         <i class="fa-solid fa-magnifying-glass search-icon"></i>
         <input type="text" id="searchInput" onkeyup="searchProduct()" placeholder="Search" class="search-input">
       </div>
 
       <div class="nav-links">
-        <a href="../home.html">Home</a>
-        <a href="../shop.html">Shop</a>
-        <a href="../order.html">Order</a>
-        <a href="../cart.html">Cart</a>
-        <a href="../User/profile.html">
+        <a href="../home.php">Home</a>
+        <a href="../shop.php">Shop</a>
+        <a href="../order.php">Order</a>
+        <a href="../cart.php">Cart</a>
+        <a href="../User/profile.php">
           <div class="profile-icon">
             <i class="fa-solid fa-user"></i>
           </div>
@@ -39,18 +49,34 @@
 
   <!-- Breadcrumb -->
   <div class="breadcrumb">
-    <a href="../home.html">HOME</a> 
-    <span class="separator">/</span> 
-    <a href="../shop.html">SHOP</a>
-    <span class="separator">/</span> 
-    <span class="current">GPU (Graphics Card)</span>
+    <a href="../home.php">HOME</a>
+    <span class="separator">/</span>
+    <a href="../shop.php">SHOP</a>
+    <span class="separator">/</span>
+    <span class="current">
+      <?php
+      // Display category name based on category_id
+      $categoryNames = [
+        1 => 'Accessories',
+        2 => 'Case',
+        3 => 'Cooling System',
+        4 => 'Central Processing Unit (CPU)',
+        5 => 'Graphics Processing Unit (GPU)',
+        6 => 'Motherboard',
+        7 => 'Power Supply Unit (PSU)',
+        8 => 'Random Access Memory (RAM)',
+        9 => 'Storage'
+      ];
+      echo $categoryNames[$categoryID] ?? 'Category';
+      ?>
+    </span>
   </div>
 
   <div class="products-page">
     <!-- Sidebar -->
     <div class="sidebar">
       <h3 class="filter-title">Price Range</h3>
-      
+
       <div class="price-range-container">
         <div class="input-group">
           <label>Price Minimum</label>
@@ -81,47 +107,34 @@
 
     <!-- Products Content -->
     <div class="products-content">
-      <h2 class="page-title">GPU (Graphics Card)</h2>
-      
+      <h2 class="page-title">
+        <?php
+        echo $categoryNames[$categoryID] ?? 'Category';
+        ?>
+      </h2>
+
       <div class="products-grid">
 
- 
-        <div class="product-card">
-          <a href="../product.html" style="text-decoration:none;color:inherit;">
-            <div class="product-image">
-              <img src="../Assets/pictures/GIGABYTE RTX 4090.jpg" alt="RTX 4090">
+        <?php foreach ($result as $product): ?>
+          <div class="product-card">
+            <a href="../product.php?product_id=<?= $product['product_id'] ?>" style="text-decoration:none;color:inherit;">
+              <div class="product-image">
+                <img src="#">
+              </div>
+              <div class="product-info">
+                <h3><?= $product['product_name'] ?></h3>
+                <p class="price">₱<?= number_format($product['price'], 2) ?></p>
+              </div>
+            </a>
+            <div class="product-actions" style="padding: 0 20px 20px;">
+              <button class="add-to-cart-btn" onclick="addToCartProduct(<?= $product['product_id'] ?>)"
+                title="Add to Cart">
+                <i class="fa-solid fa-cart-plus"></i>
+              </button>
+              <span class="buy-now-btn" onclick="buyNow(<?= $product['product_id'] ?>)">Buy Now</span>
             </div>
-            <div class="product-info">
-              <h3>GIGABYTE GeForce RTX 4091 D 24GB WINDFORCE</h3>
-              <p class="price">₱5,000</p>
-            </div>
-          </a>
-          <div class="product-actions" style="padding: 0 20px 20px;">
-            <button class="add-to-cart-btn" onclick="addToCart()" title="Add to Cart">
-              <i class="fa-solid fa-cart-plus"></i>
-            </button>
-            <a href="../product.html" class="buy-now-btn">Buy Now</a>
           </div>
-        </div>
-
-        <div class="product-card">
-          <a href="../product.html" style="text-decoration:none;color:inherit;">
-            <div class="product-image">
-              <img src="../Assets/pictures/GIGABYTE RTX 4090.jpg" alt="RTX 4090">
-            </div>
-            <div class="product-info">
-              <h3>GIGABYTE GeForce RTX 4090 D 24GB WINDFORCE</h3>
-              <p class="price">₱5,000</p>
-            </div>
-          </a>
-          <div class="product-actions" style="padding: 0 20px 20px;">
-            <button class="add-to-cart-btn" onclick="addToCart()" title="Add to Cart">
-              <i class="fa-solid fa-cart-plus"></i>
-            </button>
-            <a href="../product.html" class="buy-now-btn">Buy Now</a>
-          </div>
-        </div>
-
+        <?php endforeach; ?>
       </div>
     </div>
   </div>
@@ -137,10 +150,32 @@
   </div>
 
   <script>
-    function addToCart() {
-      const popup = document.getElementById('addedToCartPopup');
-      popup.classList.add('show');
-      setTimeout(() => popup.classList.remove('show'), 2500);
+    async function buyNow(productID) {
+      await addToCart(productID); // Add to cart first
+      setTimeout(() => {
+        window.location.href = '../cart.php';
+      }, 500);
+    }
+
+    async function addToCartProduct(productID) {
+      await addToCart(productID); // Add to cart first
+      showAddedPopup(); // Show popup immediately
+    }
+
+    async function addToCart(productID) {
+      const formData = new FormData();
+      formData.append('product_id', productID);
+      formData.append('quantity', 1);
+
+      try {
+        const response = await fetch('../Actions/Product/add-to-cart.php', {
+          method: 'POST',
+          body: formData
+        });
+        const result = await response.json();
+      } catch (error) {
+        console.error('Error adding to cart:', error); //will place sweetalert here
+      }
     }
 
     // Price range filter
@@ -162,4 +197,5 @@
   </script>
 
 </body>
+
 </html>

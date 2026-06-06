@@ -131,5 +131,5 @@ function closeLogout() {
 
  // Log-out destination redirection
 function confirmLogoutAction() {
-  window.location.href = '../Admin/adminLog-in.html';
+  window.location.href = '../Admin/adminLog-in.php';
 }

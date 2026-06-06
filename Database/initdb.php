@@ -29,7 +29,8 @@ CREATE TABLE IF NOT EXISTS users (
     address TEXT NULL,
     profile_pic VARCHAR(255) NULL,
     role ENUM('admin', 'user') NOT NULL DEFAULT 'user',
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    is_active TINYINT(1) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB;
 ");
 
@@ -43,15 +44,15 @@ CREATE TABLE IF NOT EXISTS categories (
 
 runQuery($pdo, "
     INSERT INTO categories (category_id, category_name) VALUES
-    (1, 'GPU'),
-    (2, 'CPU'),
-    (3, 'Motherboard'),
-    (4, 'RAM'),
-    (5, 'Storage'),
-    (6, 'PSU'),
-    (7, 'Cooling'),
-    (8, 'Accessories'),
-    (9, 'Case')
+    (1, 'Accessories'),
+    (2, 'Case'),
+    (3, 'Cooling System'),
+    (4, 'CPU'),
+    (5, 'GPU'),
+    (6, 'Motherboard'),
+    (7, 'PSU'),
+    (8, 'RAM'),
+    (9, 'Storage')
 ");
 
 // PRODUCTS

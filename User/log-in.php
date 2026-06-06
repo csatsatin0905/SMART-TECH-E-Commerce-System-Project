@@ -1,7 +1,10 @@
-<?php $successfulreg = $_SESSION["successful_registration"] ?? "";
-$logerror = $_SESSION["login"]["error"] ?? "";
+<?php SESSION_START();
+$successfulreg = isset($_SESSION["successful_registration"]) ? $_SESSION["successful_registration"] : "";
+$logerror = isset($_SESSION["login"]["error"]) ? $_SESSION["login"]["error"] : "";
+$logemail = isset($_SESSION["login"]["email"]) ? $_SESSION["login"]["email"] : "";
 unset($_SESSION["successful_registration"]);
-unset($_SESSION["login"]["error"]); ?>
+unset($_SESSION["login"]["error"]);
+unset($_SESSION["login"]["email"]); ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -10,6 +13,7 @@ unset($_SESSION["login"]["error"]); ?>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Login - Smart Tech</title>
   <link rel="stylesheet" href="../Assets/CSS/log-sign--up.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 
 <body>
@@ -28,7 +32,7 @@ unset($_SESSION["login"]["error"]); ?>
       <div class="login-box">
 
         <h1 class="store-name">Smart Tech</h1>
-        <?php if (isset($successfulreg)): ?>
+        <?php if (!empty($successfulreg)): ?>
           <p style="color: green; font-size: 0.9em; margin-top: 10px;">
             Registration successful! Please log in to your account.
           </p>
@@ -38,20 +42,22 @@ unset($_SESSION["login"]["error"]); ?>
 
         <form action="../Actions/Log_In/login-process.php" method="POST">
 
-          <label for="username">User Name</label>
-          <input type="email" id="username" placeholder="Username" required>
+          <label for="username">Email</label>
+          <input type="email" id="username" name="email" placeholder="Enter Email" required
+            value="<?php echo htmlspecialchars($logemail); ?>">
 
-          <label for="password">Password</label>
-          <input type="password" id="password" placeholder="••••••••" required>
+          <span>Password</span>
+          <label for="password" style="position: relative;">
+            <input type="password" id="password" name="password" placeholder="••••••••" required>
+            <span class="toggle-password" id="toggle-password"
+              style="position: absolute; right: 10px; top: 40%; transform: translateY(-50%); cursor: pointer;">
+              <i class="fa-solid fa-eye"></i>
+            </span>
+          </label>
 
-          <div class="options">
-            <label>
-              <input type="checkbox"> Remember Me
-            </label>
-            <a href="#">Forgot Password?</a>
-          </div>
 
-          <?php if (isset($logerror)): ?>
+
+          <?php if (!empty($logerror)): ?>
             <p style="color: red; font-size: 0.9em; margin-top: 10px;">
               <?php echo $logerror ?>
             </p>
@@ -70,6 +76,19 @@ unset($_SESSION["login"]["error"]); ?>
     </div>
 
   </div>
+
+  <script>
+
+
+    const togglePassword = document.querySelector("#toggle-password");
+    const passwordInput = document.querySelector("#password");
+    togglePassword.addEventListener("click", function () {
+      const type = passwordInput.getAttribute("type") === "password" ? "text" : "password";
+      passwordInput.setAttribute("type", type);
+      this.classList.toggle("fa-eye-slash");
+    });
+
+  </script>
 
 </body>
 

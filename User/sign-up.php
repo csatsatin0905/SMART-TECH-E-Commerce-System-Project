@@ -82,7 +82,7 @@ unset($_SESSION["reg"], $_SESSION["registration"]["firstName"], $_SESSION["regis
 
           <div class="signup">
             <span>Already have account?</span>
-            <a href="log-in.html">Log-In</a>
+            <a href="log-in.php">Log-In</a>
           </div>
         </form>
 

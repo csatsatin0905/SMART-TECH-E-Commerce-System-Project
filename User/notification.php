@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Notifications | Smart Tech</title>
+
+<link rel="stylesheet" href="../Assets/CSS/navBar.css">
+<link rel="stylesheet" href="../Assets/CSS/dashboard.css">
+<link rel="stylesheet" href="../Assets/CSS/notification.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<script src="../Assets/JavaScript/script.js" defer></script>
+
+
+</head>
+
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <h1 class="logo">Smart Tech</h1>
+      
+      <div class="search-container">
+        <i class="fa-solid fa-magnifying-glass search-icon"></i>
+        <input type="text" id="searchInput" onkeyup="searchProduct()" placeholder="Search" class="search-input">
+      </div>
+
+      <div class="nav-links">
+        <a href="../home.php">Home</a>
+        <a href="../shop.php">Shop</a>
+        <a href="../order.php">Order</a>
+        <a href="../cart.php">Cart</a>
+        <a href="profile.php">
+          <div class="profile-icon">
+            <i class="fa-solid fa-user"></i>
+          </div>
+        </a>
+      </div>
+    </div>
+  </nav>
+
+<div class="dashboard">
+
+    <aside class="sidebar">
+
+        <div class="user-box">
+            <i class="fa-solid fa-circle-user"></i>
+            <span id="sidebarName">User</span>
+        </div>
+
+        <a href="profile.php">
+            <i class="fa-solid fa-user"></i>
+            My Profile
+        </a>
+
+        <a href="address.php">
+            <i class="fa-solid fa-location-dot"></i>
+            Address
+        </a>
+
+        <a href="notification.php" class="active">
+            <i class="fa-solid fa-bell"></i>
+            Notifications
+        </a>
+
+        <a href="../home.php" class="home-btn">
+            <i class="fa-solid fa-house"></i>
+            Back to Home
+        </a>
+
+        <a href="#" class="logout-btn" onclick="logoutUser()">
+            <i class="fa-solid fa-right-from-bracket"></i>
+            Log Out
+        </a>
+
+    </aside>
+
+    <main class="content">
+
+        <div class="welcome-box">
+            <h1 id="welcomeText">Welcome back, User!</h1>
+            <p>Manage your account information</p>
+        </div>
+
+        <div class="profile-card">
+
+            <div class="profile-left">
+                <i class="fa-solid fa-circle-user big-icon"></i>
+                <h2 id="profileName">User</h2>
+            </div>
+
+            <button class="btn-primary" onclick="openEditModal()">
+                <i class="fa-solid fa-pen"></i>
+                Edit Profile
+            </button>
+
+        </div>
+
+        <div class="notification-card" id="notificationCard">
+
+            <div class="table-header">
+                <div>Product</div>
+                <div>Unit Price</div>
+                <div>Quantity</div>
+                <div>Total Price</div>
+                <div>Status</div>
+            </div>
+
+            <div class="product-row" id="productRow">
+
+                <div class="product-info">
+                    <img src="../Assets/pictures/gpu.png" alt="RTX">
+                    <div>
+                        <h4>GIGABYTE GeForce RTX 3050</h4>
+                        <p>2X WindForce OC</p>
+                    </div>
+                </div>
+
+                <div>$300</div>
+                <div>1</div>
+                <div>$300</div>
+
+                <div>
+                    <span class="status delivered">
+                        Delivered
+                    </span>
+                </div>
+
+            </div>
+
+            <button class="btn-secondary clear-btn" onclick="clearNotifications()">
+                <i class="fa-solid fa-trash"></i>
+                Clear Notifications
+            </button>
+
+        </div>
+
+    </main>
+</div>
+
+<div class="modal-overlay" id="editModal">
+    <div class="modal">
+        <div class="modal-head">
+            <h3>Edit Profile</h3>
+            <button class="btn-icon" onclick="closeEditModal()"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="modal-body">
+            <div class="form-group">
+                <label>Name</label>
+                <input type="text" id="editName">
+            </div>
+            <div class="form-group">
+                <label>Phone Number</label>
+                <input type="text" id="editPhone">
+            </div>
+            <div class="form-group">
+                <label>Gender</label>
+                <select id="editGender">
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Date of Birth</label>
+                <input type="date" id="editDob">
+            </div>
+        </div>
+        <div class="modal-foot">
+            <button class="btn-outline" onclick="closeEditModal()">Cancel</button>
+            <button class="btn-primary" onclick="saveProfile()"><i class="fa-solid fa-check"></i> Save Profile</button>
+        </div>
+    </div>
+</div>
+
+<div class="modal-overlay" id="logoutModal">
+    <div class="modal" style="width: 380px;">
+        <div class="modal-head">
+            <h3>Confirm Logout</h3>
+            <button class="btn-icon" onclick="closeLogoutModal()"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="modal-body" style="text-align: center; padding: 30px 20px;">
+            <p style="color: #4b5563; margin: 0;"><strong>Are you sure you want to log out of your<br>account?</strong></p>
+        </div>
+        <div class="modal-foot" style="justify-content: center;">
+            <button class="btn-outline" onclick="closeLogoutModal()">Cancel</button>
+            <button class="btn-primary" style="background: #4E0B99; border: none;" onclick="confirmLogout()">
+                <i class="fa-solid fa-right-from-bracket"></i> Log Out
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="modal-overlay" id="successModal">
+    <div class="modal" style="width: 350px;">
+        <div class="modal-body" style="text-align: center; padding: 40px 20px 20px;">
+            <i class="fa-solid fa-circle-check" style="font-size: 4rem; color: #059669; margin-bottom: 15px;"></i>
+            <h3 style="color: #1f2937; margin-bottom: 10px; font-size: 18px;">Success!</h3>
+            <p style="margin-bottom: 25px; color: #6b7280; font-size: 13px;">Your profile has been updated successfully.</p>
+            
+            <button class="btn-primary" onclick="closeSuccessModal()" style="width: 100%; justify-content: center;">Done</button>
+        </div>
+    </div>
+</div>
+
+<script>
+let profileData = {
+    name: "User",
+    phone: "06967676711",
+    gender: "Male",
+    dob: "2000-01-01"
+};
+
+// LOAD SAVED PROFILE
+window.onload = function () {
+    const savedProfile = localStorage.getItem("profileData");
+
+    if(savedProfile){
+        profileData = JSON.parse(savedProfile);
+    }
+
+    updateProfileUI();
+
+    // CHECK IF NOTIFICATIONS CLEARED
+    const cleared = localStorage.getItem("notificationsCleared");
+
+    if(cleared === "true"){
+        removeNotifications();
+    }
+};
+
+// UPDATE PROFILE UI
+function updateProfileUI(){
+    document.getElementById("profileName").innerText = profileData.name;
+    document.getElementById("sidebarName").innerText = profileData.name;
+    document.getElementById("welcomeText").innerText = `Welcome back, ${profileData.name}!`;
+}
+
+// OPEN MODAL
+function openEditModal(){
+    document.getElementById("editModal").style.display = "flex";
+    document.getElementById("editName").value = profileData.name;
+    document.getElementById("editPhone").value = profileData.phone;
+    document.getElementById("editGender").value = profileData.gender;
+    document.getElementById("editDob").value = profileData.dob;
+}
+
+// CLOSE MODAL
+function closeEditModal(){
+    document.getElementById("editModal").style.display = "none";
+}
+
+// SAVE PROFILE
+function saveProfile(){
+    profileData.name = document.getElementById("editName").value;
+    profileData.phone = document.getElementById("editPhone").value;
+    profileData.gender = document.getElementById("editGender").value;
+    profileData.dob = document.getElementById("editDob").value;
+
+    localStorage.setItem("profileData", JSON.stringify(profileData));
+    updateProfileUI();
+    closeEditModal();
+    
+    // SHOW SUCCESS MODAL
+    document.getElementById("successModal").style.display = "flex";
+}
+
+// CLOSE SUCCESS MODAL
+function closeSuccessModal() {
+    document.getElementById("successModal").style.display = "none";
+}
+
+// CLEAR NOTIFICATIONS
+function clearNotifications(){
+    localStorage.setItem("notificationsCleared", "true");
+    removeNotifications();
+}
+
+// REMOVE NOTIFICATION CONTENT
+function removeNotifications(){
+    document.getElementById("notificationCard").innerHTML = `
+        <div class="notification-empty">
+            <i class="fa-solid fa-bell-slash"></i>
+            <p>No notifications available.</p>
+        </div>
+    `;
+}
+
+// LOGOUT FUNCTIONS
+function logoutUser() {
+    document.getElementById("logoutModal").style.display = "flex";
+}
+
+function closeLogoutModal() {
+    document.getElementById("logoutModal").style.display = "none";
+}
+
+function confirmLogout() {
+    window.location.href = "log-in.php";
+}
+</script>
+</body>
+</html>

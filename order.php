@@ -23,11 +23,11 @@
       </div>
 
       <div class="nav-links">
-        <a href="home.html">Home</a>
-        <a href="shop.html">Shop</a>
-        <a href="order.html" class="active">Order</a>
-        <a href="cart.html">Cart</a>
-        <a href="User/profile.html">
+        <a href="home.php">Home</a>
+        <a href="shop.php">Shop</a>
+        <a href="order.php" class="active">Order</a>
+        <a href="cart.php">Cart</a>
+        <a href="User/profile.php">
           <div class="profile-icon">
             <i class="fa-solid fa-user"></i>
           </div>

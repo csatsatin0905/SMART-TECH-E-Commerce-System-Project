@@ -27,10 +27,12 @@ if ($email && $password) {
     }
 
     $_SESSION["login"]["error"] = "Invalid username or password.";
+    $_SESSION["login"]["email"] = $email;
     header("Location: ../../User/log-in.php");
     exit;
 } else {
     $_SESSION["login"]["error"] = "Email and password must be both filled";
+    $_SESSION["login"]["email"] = $email;
     header("Location: ../../User/log-in.php");
     exit;
 }

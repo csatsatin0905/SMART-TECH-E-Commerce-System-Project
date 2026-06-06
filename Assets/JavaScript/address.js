@@ -15,7 +15,7 @@ function cancelEdit() {
 }
 
 function goBackProfile() {
-    window.location.href = "profile.html";
+    window.location.href = "profile.php";
 }
 
 function saveAddress() {

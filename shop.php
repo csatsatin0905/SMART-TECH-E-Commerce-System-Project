@@ -22,11 +22,11 @@
       </div>
 
       <div class="nav-links">
-        <a href="home.html">Home</a>
-        <a href="shop.html" class="active">Shop</a>
-        <a href="order.html">Order</a>
-        <a href="cart.html">Cart</a>
-        <a href="User/profile.html">
+        <a href="home.php">Home</a>
+        <a href="shop.php" class="active">Shop</a>
+        <a href="order.php">Order</a>
+        <a href="cart.php">Cart</a>
+        <a href="User/profile.php">
           <div class="profile-icon">
             <i class="fa-solid fa-user"></i>
           </div>
@@ -37,7 +37,7 @@
 
   <!-- Breadcrumb -->
   <div class="breadcrumb">
-    <a href="home.html">HOME</a> 
+    <a href="home.php">HOME</a> 
     <span class="separator">/</span> 
     <span class="current">SHOP</span>
   </div>
@@ -48,47 +48,47 @@
 
     <div class="categories-grid">
 
-      <a href="Categories/accessories.html" class="category-card">
+      <a href="Categories/categories.php?category_id=1" class="category-card">
         <img src="Assets/pictures/accessories.png" alt="Accessories">
         <p>Accessories</p>
       </a>
 
-      <a href="Categories/case.html" class="category-card">
+      <a href="Categories/categories.php?category_id=2" class="category-card">
         <img src="Assets/pictures/cpu-home.png" alt="Case">
         <p>Case</p>
       </a>
 
-      <a href="Categories/coolingsystem.html" class="category-card">
+      <a href="Categories/categories.php?category_id=3" class="category-card">
         <img src="Assets/pictures/cooling-system.png" alt="Cooling">
         <p>Cooling System</p>
       </a>
 
-      <a href="Categories/cpu.html" class="category-card">
+      <a href="Categories/categories.php?category_id=4" class="category-card">
         <img src="Assets/pictures/CPU.png" alt="CPU">
         <p>CPU (Processor)</p>
       </a>
 
-      <a href="Categories/gpu.html" class="category-card">
+      <a href="Categories/categories.php?category_id=5" class="category-card">
         <img src="Assets/pictures/GPU.png" alt="GPU">
         <p>GPU (Graphics Card)</p>
       </a>
 
-      <a href="Categories/motherboard.html" class="category-card">
+      <a href="Categories/categories.php?category_id=6" class="category-card">
         <img src="Assets/pictures/motherBoard.png" alt="Motherboard">
         <p>Motherboard</p>
       </a>
     
-      <a href="Categories/psu.html" class="category-card">
+      <a href="Categories/categories.php?category_id=7" class="category-card">
         <img src="Assets/pictures/PSU.png" alt="PSU">
         <p>PSU (Power Supply)</p>
       </a>
 
-      <a href="Categories/ram.html" class="category-card">
+      <a href="Categories/categories.php?category_id=8" class="category-card">
         <img src="Assets/pictures/RAM.png" alt="RAM">
         <p>RAM (Memory)</p>
       </a>
 
-      <a href="Categories/storage.html" class="category-card">
+      <a href="Categories/categories.php?category_id=9" class="category-card">
         <img src="Assets/pictures/storage.png" alt="Storage">
         <p>Storage (SSD/HDD)</p>
       </a>

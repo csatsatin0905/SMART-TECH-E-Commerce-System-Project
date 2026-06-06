@@ -1,5 +1,12 @@
+<?php
+session_start();
+require_once 'Database/runQuery.php';
+$sql = "SELECT c.cart_id, c.quantity, p.product_id, p.product_name, p.price FROM cart c JOIN products p ON c.product_id = p.product_id WHERE c.user_id = ? ORDER BY c.created_at DESC;";
+$cartItems = runQuery($pdo, $sql, [$_SESSION['user_id']], true);
+?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,24 +17,25 @@
   <script src="Assets/JavaScript/script.js" defer></script>
   <script src="Assets/JavaScript/cart.js" defer></script>
 </head>
+
 <body>
 
   <!-- Navbar -->
   <nav class="navbar">
     <div class="nav-container">
       <h1 class="logo">Smart Tech</h1>
-      
+
       <div class="search-container">
         <i class="fa-solid fa-magnifying-glass search-icon"></i>
         <input type="text" id="searchInput" onkeyup="searchProduct()" placeholder="Search" class="search-input">
       </div>
 
       <div class="nav-links">
-        <a href="home.html">Home</a>
-        <a href="shop.html">Shop</a>
-        <a href="order.html">Order</a>
-        <a href="cart.html" class="active">Cart</a>
-        <a href="User/profile.html">
+        <a href="home.php">Home</a>
+        <a href="shop.php">Shop</a>
+        <a href="order.php">Order</a>
+        <a href="cart.php" class="active">Cart</a>
+        <a href="User/profile.php">
           <div class="profile-icon">
             <i class="fa-solid fa-user"></i>
           </div>
@@ -55,52 +63,55 @@
             </p>
           </div>
         </div>
-        <a href="User/address.html" class="change-address-btn">Change address</a>
+        <a href="User/address.php" class="change-address-btn">Change address</a>
       </div>
 
       <!-- Check Out Button -->
-      <a href="buy.html" class="checkout-btn">Check out</a>
+      <a href="buy.php" class="checkout-btn">Check out</a>
     </div>
 
     <!-- Cart Items -->
     <div class="cart-items">
-      <table class="cart-table">  
+      <table class="cart-table" style="text-align: center;">
         <thead>
-          <tr>
+          <tr style="text-align: center;">
             <th width="40px"></th>
             <th>Product</th>
-            <th>Variation</th>
             <th>Unit Price</th>
             <th>Quantity</th>
             <th>Total Price</th>
           </tr>
         </thead>
 
-           <!-- ETO YUNG SA ITEM CARTS -->
+        <!-- ETO YUNG SA ITEM CARTS -->
         <tbody>
-          <tr>
-            <td><input type="checkbox" class="item-checkbox" checked></td>
-            <td class="product-cell">
-              <img src="Assets/pictures/GIGABYTE RTX 4090.jpg" alt="RTX 4090" class="product-img">
-              <strong>GIGABYTE GeForce RTX 4090 D 24GB WINDFORCE [CDM]</strong>
-            </td>   
-            <td>WINDFORCE CDM</td>
-            <td>₱5,000</td>
-            <td>
-              <div class="quantity-wrapper">
-                <button class="qty-btn" onclick="changeQty(this, -1)">–</button>
-                <span class="qty-value">1</span>
-                <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
-              </div>
-            </td>
-            <td class="total-price">₱5,000</td>
-          </tr>
+          <?php foreach ($cartItems as $item): ?>
+            <tr id="<?= $item['product_id'] ?>">
+              <td onclick="deleteCart(<?= $item['cart_id'] ?>)" style="text-align: center; padding:30px"><i
+                  class="fa-solid fa-trash" style="color: #dc3545; cursor: pointer;" onclick="removeFromCart(this)"></i>
+              </td>
+              <td class="product-cell" style="padding-left: 0">
+                <img src="Assets/pictures/GIGABYTE RTX 4090.jpg" alt="RTX 4090" class="product-img">
+                <strong><?= $item['product_name'] ?></strong>
+              </td>
+              <td class="unit-price">₱<?= number_format($item['price'], 2) ?></td>
+              <td>
+                <div class="quantity-wrapper" style="display:flex; justify-content: center;">
+                  <button class="qty-btn" onclick="changeQty(this, -1)">–</button>
+                  <span class="qty-value"><?= $item['quantity'] ?></span>
+                  <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
+                </div>
+              </td>
+              <td class="total-price">₱<?= number_format($item['price'] * $item['quantity'], 2) ?></td>
+            </tr>
+          <?php endforeach; ?>
         </tbody>
 
       </table>
     </div>
   </div>
 
-  
+
 </body>
+
 </html>

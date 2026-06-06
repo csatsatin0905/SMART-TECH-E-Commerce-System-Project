@@ -19,10 +19,10 @@
       <div class="sb-logo">Smart Tech <span>Admin Panel</span></div>
       <div class="sb-nav">
         <div class="sb-label">Main</div>
-        <a href="adminDashboard.html" class="sb-item"><i class="fa-solid fa-gauge-high"></i> Dashboard</a>
-        <a href="adminProducts.html" class="sb-item active"><i class="fa-solid fa-box"></i> Products</a>
-        <a href="adminOrders.html" class="sb-item"><i class="fa-solid fa-cart-shopping"></i> Orders</a>
-        <a href="adminUsers.html" class="sb-item"><i class="fa-solid fa-users"></i> Customers</a>
+        <a href="adminDashboard.php" class="sb-item"><i class="fa-solid fa-gauge-high"></i> Dashboard</a>
+        <a href="adminProducts.php" class="sb-item active"><i class="fa-solid fa-box"></i> Products</a>
+        <a href="adminOrders.php" class="sb-item"><i class="fa-solid fa-cart-shopping"></i> Orders</a>
+        <a href="adminUsers.php" class="sb-item"><i class="fa-solid fa-users"></i> Customers</a>
       </div>
       <div class="sb-bottom">
         <!-- 1. Context Popover Container for Logout Action -->

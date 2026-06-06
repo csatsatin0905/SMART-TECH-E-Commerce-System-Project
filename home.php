@@ -22,11 +22,11 @@
       </div>
 
       <div class="nav-links">
-        <a href="home.html" class="active">Home</a>
-        <a href="shop.html">Shop</a>
-        <a href="order.html">Order</a>
-        <a href="cart.html">Cart</a>
-        <a href="User/profile.html">
+        <a href="home.php" class="active">Home</a>
+        <a href="shop.php">Shop</a>
+        <a href="order.php">Order</a>
+        <a href="cart.php">Cart</a>
+        <a href="User/profile.php">
           <div class="profile-icon">
             <i class="fa-solid fa-user"></i>
           </div>
@@ -43,7 +43,7 @@
         <p>High Performance PC components and stunning prebuilt system for gamers, creators, and pros.</p>
         
         <div class="hero-buttons">
-          <a href="shop.html" class="btn primary-btn">Shop all parts →</a>
+          <a href="shop.php" class="btn primary-btn">Shop all parts →</a>
           <!--<a href="#" class="btn secondary-btn">Shop Pre-Built PCs →</a>-->
         </div>
       </div>
@@ -95,32 +95,32 @@
 
     <div class="section-header">
       <h2>Shop by Categories</h2>
-      <a href="shop.html" class="view-all">View All Category <i class="fa-solid fa-arrow-right"></i></a>
+      <a href="shop.php" class="view-all">View All Category <i class="fa-solid fa-arrow-right"></i></a>
     </div>
     
     <div class="category-featured-grid">
-      <a href="Categories/gpu.html" class="featured-card">
+      <a href="Categories/categories.php?category_id=5" class="featured-card">
         <img src="Assets/pictures/GPU.png" alt="GPU">
         <h3>GPU's</h3>
         <p>ULTRA gaming<br>performance</p>
         <span class="shop-now">Shop now →</span>
       </a>
 
-      <a href="Categories/cpu.html" class="featured-card">
+      <a href="Categories/categories.php?category_id=4" class="featured-card">
         <img src="Assets/pictures/CPU.png" alt="CPU">
         <h3>CPU's</h3>
         <p>Top performance <br>processors</p>
         <span class="shop-now">Shop now →</span>
       </a>
 
-      <a href="Categories/psu.html" class="featured-card">
+      <a href="Categories/categories.php?category_id=7" class="featured-card">
         <img src="Assets/pictures/PSU.png" alt="PSU">
         <h3>PSU</h3>
         <p>Stable power<br>Maximum safety</p>
         <span class="shop-now">Shop now →</span>
       </a>
 
-      <a href="Categories/ram.html" class="featured-card">
+      <a href="Categories/categories.php?category_id=8" class="featured-card">
         <img src="Assets/pictures/RAM.png" alt="RAM">
         <h3>RAM</h3>
         <p>Faster Load times<br>smooth gameplay</p>

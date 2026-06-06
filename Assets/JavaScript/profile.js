@@ -78,5 +78,5 @@ function closeLogoutModal() {
 }
 
 function confirmLogout() {
-    window.location.href = "log-in.html";
+    window.location.href = "log-in.php";
 }

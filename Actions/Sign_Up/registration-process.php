@@ -32,7 +32,7 @@ try {
         if (empty($firstName) && empty($lastName) && empty($email) && empty($password) && empty($cpassword)) {
             $_SESSION["registration"]["error"] = "All fields must be filled.";
             $_SESSION["reg"] = true;
-            header("Location: ../login-register.php");
+            header("Location: ../../User/sign-up.php");
             exit;
         }
 
