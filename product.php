@@ -30,11 +30,6 @@ $reviews = runQuery($pdo, $sql, [$productID], true);
     <div class="nav-container">
       <h1 class="logo">Smart Tech</h1>
 
-      <div class="search-container">
-        <i class="fa-solid fa-magnifying-glass search-icon"></i>
-        <input type="text" id="searchInput" onkeyup="searchProduct()" placeholder="Search" class="search-input">
-      </div>
-
       <div class="nav-links">
         <a href="home.php">Home</a>
         <a href="shop.php">Shop</a>
@@ -54,7 +49,7 @@ $reviews = runQuery($pdo, $sql, [$productID], true);
 
       <!-- Left: Image -->
       <div class="product-image-section">
-        <img src="#" alt="<?= $product['product_name'] ?>" class="main-image">
+        <img src="<?= $product['image'] ?>" alt="<?= $product['product_name'] ?>" class="main-image">
       </div>
 
       <!-- Right: Product Info -->
