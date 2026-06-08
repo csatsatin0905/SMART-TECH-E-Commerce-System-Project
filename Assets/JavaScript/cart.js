@@ -1,7 +1,10 @@
-async function changeQty(btn, amount) {
+async function changeQty(btn, amount, stock) {
   let qtySpan = btn.parentElement.querySelector('.qty-value');
   let qty = parseInt(qtySpan.textContent);
-  qty = Math.max(1, qty + amount);
+  qty = Math.max(1, Math.min(qty + amount, stock));
+  btn.parentElement.querySelectorAll('.qty-btn').forEach(button => {
+    button.disabled = (qty <= 1 && button.textContent === '–') || (qty >= stock && button.textContent === '+');
+  });
   qtySpan.textContent = qty;
 
   let row = btn.closest('tr');
