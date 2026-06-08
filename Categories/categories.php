@@ -1,7 +1,7 @@
 <?php
 require_once '../Database/runQuery.php';
 $categoryID = $_GET['category_id'] ?? 1; // Default to 1 if not provided
-$sql = "SELECT * FROM products WHERE category_id = ?;";
+$sql = "SELECT * FROM products WHERE category_id = ? AND stock > 0 AND is_deleted = 0;";
 $result = runQuery($pdo, $sql, [$categoryID], true);
 
 ?>
@@ -30,7 +30,8 @@ $result = runQuery($pdo, $sql, [$categoryID], true);
 
       <div class="search-container">
         <i class="fa-solid fa-magnifying-glass search-icon"></i>
-        <input type="text" id="searchInput" onkeyup="searchProduct()" placeholder="Search" class="search-input">
+        <input type="text" id="searchInput" onkeyup="searchProduct()" placeholder="Search Products..."
+          class="search-input">
       </div>
 
       <div class="nav-links">
@@ -119,7 +120,8 @@ $result = runQuery($pdo, $sql, [$categoryID], true);
           <div class="product-card">
             <a href="../product.php?product_id=<?= $product['product_id'] ?>" style="text-decoration:none;color:inherit;">
               <div class="product-image">
-                <img src="#">
+                <img src="../<?= $product['image'] ?>" alt="<?= $product['product_name'] ?>"
+                  onerror="this.onerror=null; this.src='https://via.placeholder.com/300?text=No+Image'  ">
               </div>
               <div class="product-info">
                 <h3><?= $product['product_name'] ?></h3>
