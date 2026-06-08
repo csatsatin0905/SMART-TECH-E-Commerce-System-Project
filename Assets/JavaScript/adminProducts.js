@@ -5,6 +5,7 @@ let total_low_stock = 0;
 let total_out_of_stock = 0;
 
 async function fetchTableData() {
+  console.log('Fetching table data...');
   try {
     const response = await fetch('../Actions/Admin_Products/fetch-table-data.php');
     if (!response.ok) throw new Error('Network response was not ok');
@@ -28,19 +29,20 @@ function stockColor(s) {
 }
 
 function stockPill(s) {
-  if (s <= 10) return '<span class="pill pill-low">Low Stock</span>';
+  if (s <= 10 && s > 0) return '<span class="pill pill-low">Low Stock</span>';
   if (s === 0) return '<span class="pill pill-cancelled">Out of Stock</span>';
   return '<span class="pill pill-active">In Stock</span>';
 }
 
 function renderTable(data) {
   const tbody = document.getElementById('productsBody');
+  tbody.innerHTML = '';
   //for loop to generate table rows from data
   tbody.innerHTML = data.map(p => `
       <tr data-id="${p.product_id}">
         <td>
           <div style="display:flex;align-items:center;gap:12px;">
-            <img src="${p.image || 'https://via.placeholder.com/52?text=No+Image'}" 
+            <img src="../${p.image || 'https://via.placeholder.com/52?text=No+Image'}" 
                  class="prod-img" 
                  onerror="this.onerror=null; this.src='https://via.placeholder.com/52?text=No+Image'">
             <div>
@@ -82,10 +84,21 @@ function previewImage(url) {
     return;
   }
   preview.innerHTML = `
-      <img src="${url}" style="max-height:90px; border-radius:8px; border:1px solid #ddd;" 
-           onerror="this.style.display='none'; this.parentElement.innerHTML='<small style=\'color:#ef4444\'>Cannot load image.<br>Check the path.</small>'">
+      <img src="${url}" style="max-height:90px; border-radius:8px; border:1px solid #ddd;">
     `;
 }
+
+const productImageInput = document.getElementById('productImage');
+productImageInput.addEventListener('change', function () {
+  const file = this.files[0];
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = function (e) {
+      previewImage(e.target.result);
+    };
+    reader.readAsDataURL(file);
+  }
+});
 
 function openModal() {
   editingId = null;
@@ -93,7 +106,6 @@ function openModal() {
   document.getElementById('fName').value = '';
   document.getElementById('fPrice').value = '';
   document.getElementById('fStock').value = '';
-  // document.getElementById('fSku').value = '';
   document.getElementById('fCategory').value = 'GPU';
   document.getElementById('imagePreview').innerHTML = '';
   document.getElementById('productModal').classList.add('show');
@@ -110,15 +122,19 @@ function openEdit(id) {
   document.getElementById('fPrice').value = p.price;
   document.getElementById('fStock').value = p.stock;
   document.getElementById('fSpecs').value = p.description || '';
-  previewImage(p.image || '');
+  previewImage("../" + (p.image || ''));
   document.getElementById('productModal').classList.add('show');
+
+
 }
 
-function saveProduct() {
+async function saveProduct() {
   const name = document.getElementById('fName').value.trim();
+  const file = document.getElementById('productImage').files[0];
   const cat = document.getElementById('fCategory').value;
   const price = parseInt(document.getElementById('fPrice').value);
   const stock = parseInt(document.getElementById('fStock').value);
+  const desc = document.getElementById('fSpecs').value;
 
   if (!name || isNaN(price) || isNaN(stock)) {
     showToast('Please fill all required fields.', 'danger');
@@ -126,17 +142,52 @@ function saveProduct() {
   }
 
   if (editingId) {
-    let image = ""; //to be replaced with actual image handling logic
-    const idx = products.findIndex(p => p.product_id === editingId);
-    products[idx] = { ...products[idx], product_name: name, image, category: cat, price, stock };
+    //for updating existing product
+    const formData = new FormData();
+    formData.append('product_id', editingId);
+    formData.append('name', name);
+    formData.append('category_id', cat);
+    formData.append('price', price);
+    formData.append('stock', stock);
+    formData.append('desc', desc);
+    if (file) formData.append('image', file);
+    try {
+      const response = await fetch('../Actions/Admin_Products/edit-product.php', {
+        method: 'POST',
+        body: formData
+      });
+      if (!response.ok) throw new Error('Network response was not ok');
+      const data = await response.json();
+      if (data.success === false) throw new Error(data.message || 'Failed to update product');
+    } catch (err) {
+      showToast('Error updating product.', 'danger');
+    }
     showToast('Product updated!', 'success');
   } else {
-    products.push({ product_id: idCounter++, product_name: name, image, category: cat, price, stock });
+    //for saving new product
+    const formData = new FormData();
+    formData.append('name', name);
+    formData.append('category_id', cat);
+    formData.append('price', price);
+    formData.append('stock', stock);
+    formData.append('desc', desc);
+    if (file) formData.append('image', file);
+    try {
+      const response = await fetch('../Actions/Admin_Products/add-product.php', {
+        method: 'POST',
+        body: formData
+      });
+      if (!response.ok) throw new Error('Network response was not ok');
+      const data = await response.json();
+      if (data.success === false) throw new Error(data.message || 'Failed to add product');
+    } catch (err) {
+      showToast('Error adding product.', 'danger');
+    }
     showToast('Product added!', 'success');
   }
 
+  await fetchTableData(); // Refresh the table after updating or saving
   closeModal();
-  renderTable(products);
 }
 
 function closeModal() {
@@ -154,10 +205,23 @@ function closeDelete() {
   document.getElementById('deleteModal').classList.remove('show');
 }
 
-function confirmDelete() {
-  products = products.filter(p => p.product_id !== deletingId);
+async function confirmDelete() {
+  if (!deletingId) return;
+  const formData = new FormData();
+  formData.append('product_id', deletingId);
+  try {
+    const response = await fetch('../Actions/Admin_Products/delete-product.php', {
+      method: 'POST',
+      body: formData
+    });
+    if (!response.ok) throw new Error('Network response was not ok');
+    const data = await response.json();
+    if (data.success === false) throw new Error(data.message || 'Failed to delete product');
+  } catch (err) {
+    showToast('Error deleting product.', 'danger');
+  }
   closeDelete();
-  renderTable(products);
+  await fetchTableData(); // Refresh the table after adding
   showToast('Product deleted.', 'danger');
 }
 
