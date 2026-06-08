@@ -161,7 +161,7 @@
                 <th>Order ID</th>
                 <th>Customer</th>
                 <th>Product</th>
-                <th>Qty</th>
+                <th>No. of Items</th>
                 <th>Total</th>
                 <th>Date</th>
                 <th>Status</th>
