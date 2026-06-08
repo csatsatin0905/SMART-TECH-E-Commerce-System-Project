@@ -39,14 +39,38 @@
 }
 
 /* Column Dimensions configuration */
-.orders-table th:nth-child(1) { width: 42%; text-align: center; } 
-.orders-table th:nth-child(2) { width: 12%; }
-.orders-table th:nth-child(3) { width: 8%; }
-.orders-table th:nth-child(4) { width: 10%; }
-.orders-table th:nth-child(5) { width: 18%; }
-.orders-table th:nth-child(6) { width: 10%; }
-.orders-table th:nth-child(7) { width: 10%; }
-.orders-table th:nth-child(8) { width: 10%; }
+.orders-table th:nth-child(1) {
+  width: 42%;
+  text-align: center;
+}
+
+.orders-table th:nth-child(2) {
+  width: 12%;
+}
+
+.orders-table th:nth-child(3) {
+  width: 8%;
+}
+
+.orders-table th:nth-child(4) {
+  width: 10%;
+}
+
+.orders-table th:nth-child(5) {
+  width: 18%;
+}
+
+.orders-table th:nth-child(6) {
+  width: 10%;
+}
+
+.orders-table th:nth-child(7) {
+  width: 10%;
+}
+
+.orders-table th:nth-child(8) {
+  width: 10%;
+}
 
 /* Row Content Layout elements */
 .orders-table td {
@@ -84,7 +108,7 @@
 
 /* ==================== STATUS COLUMN ==================== */
 .status-col {
-  text-align: center; 
+  text-align: center;
   vertical-align: middle;
 }
 
@@ -102,6 +126,16 @@
   margin: 0 auto;
 }
 
+.status.pending {
+  background: #fbbf24;
+  color: white;
+}
+
+.status.processing {
+  background: #3b82f6;
+  color: white;
+}
+
 .status.shipped {
   background: #10b981;
   color: white;
@@ -112,8 +146,14 @@
   color: white;
 }
 
+.status.cancelled {
+  background: #ef4444;
+  color: white;
+}
+
 /* Action Review Interaction Component */
-.review-btn, .receipt-btn {
+.review-btn,
+.receipt-btn {
   background: #6B21A8;
   color: white;
   border: none;
@@ -130,7 +170,7 @@
   text-decoration: none;
   justify-content: center;
   min-width: 170px;
-  margin: 0 auto; 
+  margin: 0 auto;
 }
 
 .receipt-btn {
@@ -155,12 +195,12 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.4); 
+  background-color: rgba(0, 0, 0, 0.4);
   backdrop-filter: blur(4px);
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 2000; 
+  z-index: 2000;
   opacity: 0;
   pointer-events: none;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -248,7 +288,7 @@
 
 .rating-picker .stars i {
   font-size: 1.6rem;
-  color: #fbbf24; 
+  color: #fbbf24;
   cursor: pointer;
   transition: transform 0.2s ease;
 }
@@ -317,6 +357,459 @@
   box-shadow: 0 4px 12px rgba(107, 33, 168, 0.2);
 }
 
+/* RECEIPT MODAL STYLES */
+.receipt-view-btn {
+  padding: 9px 15px;
+  border: none;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #2563eb, #0891b2);
+  color: white;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(37, 99, 235, 0.25);
+  transition: 0.25s ease;
+}
+
+.receipt-view-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 26px rgba(37, 99, 235, 0.35);
+}
+
+/* Modal Overlay */
+
+.receipt-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  background: rgba(15, 23, 42, 0.45);
+  backdrop-filter: blur(5px);
+}
+
+.receipt-modal-overlay.active {
+  display: flex;
+}
+
+/* Main Receipt Box */
+
+.receipt-box {
+  position: relative;
+  width: 100%;
+  max-width: 700px;
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 28px;
+  border-radius: 24px;
+  background:
+    radial-gradient(circle at top right, rgba(37, 99, 235, 0.08), transparent 35%),
+    #ffffff;
+  border: 1px solid #e5e7eb;
+  box-shadow:
+    0 30px 90px rgba(15, 23, 42, 0.22),
+    0 0 0 1px rgba(37, 99, 235, 0.03);
+  color: #111827;
+  font-family: "Segoe UI", Arial, sans-serif;
+  animation: receiptPop 0.25s ease;
+}
+
+@keyframes receiptPop {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(18px);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* Close Button */
+
+.receipt-close-btn {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 38px;
+  height: 38px;
+  border: none;
+  border-radius: 50%;
+  background: #f1f5f9;
+  color: #475569;
+  font-size: 24px;
+  cursor: pointer;
+  transition: 0.25s ease;
+}
+
+.receipt-close-btn:hover {
+  background: #ef4444;
+  color: white;
+}
+
+/* Header */
+
+.receipt-header {
+  text-align: center;
+  padding-bottom: 22px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.receipt-logo {
+  width: 68px;
+  height: 68px;
+  margin: 0 auto 14px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #2563eb, #06b6d4);
+  color: white;
+  font-size: 24px;
+  font-weight: 900;
+  letter-spacing: 1px;
+  box-shadow: 0 12px 28px rgba(37, 99, 235, 0.28);
+}
+
+.receipt-header h2 {
+  margin: 0;
+  font-size: 30px;
+  letter-spacing: 0.5px;
+  color: #0f172a;
+}
+
+.receipt-header p {
+  margin-top: 5px;
+  color: #64748b;
+  font-size: 14px;
+}
+
+/* Order Info */
+
+.receipt-order-info {
+  margin-top: 22px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 13px;
+}
+
+.receipt-order-info div {
+  padding: 14px;
+  border-radius: 15px;
+  background: #f8fafc;
+  border: 1px solid #e5e7eb;
+}
+
+.receipt-order-info span {
+  display: block;
+  color: #64748b;
+  font-size: 12px;
+  margin-bottom: 6px;
+}
+
+.receipt-order-info strong {
+  color: #0f172a;
+  font-size: 14px;
+}
+
+.receipt-status {
+  display: inline-block;
+  padding: 5px 11px;
+  border-radius: 999px;
+  background: #fef3c7;
+  border: 1px solid #fde68a;
+  color: #92400e !important;
+}
+
+/* Products */
+
+.receipt-products {
+  margin-top: 24px;
+  overflow: hidden;
+  border-radius: 18px;
+  border: 1px solid #e5e7eb;
+  background: #ffffff;
+}
+
+.receipt-products-header,
+.receipt-item {
+  display: grid;
+  grid-template-columns: 1.8fr 0.45fr 0.8fr 0.9fr;
+  gap: 12px;
+  align-items: center;
+}
+
+.receipt-products-header {
+  padding: 14px 16px;
+  background: linear-gradient(135deg, #eff6ff, #f0f9ff);
+  color: #1d4ed8;
+  font-size: 13px;
+  font-weight: 800;
+  border-bottom: 1px solid #dbeafe;
+}
+
+.receipt-item {
+  padding: 16px;
+  background: #ffffff;
+  border-top: 1px solid #f1f5f9;
+  font-size: 14px;
+}
+
+.receipt-item:hover {
+  background: #f8fafc;
+}
+
+.receipt-product-name {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.receipt-product-name strong {
+  color: #0f172a;
+  font-size: 14px;
+}
+
+.receipt-product-name small {
+  color: #64748b;
+  font-size: 12px;
+}
+
+.receipt-center {
+  text-align: center;
+}
+
+.receipt-right {
+  text-align: right;
+}
+
+/* Summary */
+
+.receipt-summary {
+  margin-top: 22px;
+  padding: 18px;
+  border-radius: 18px;
+  background: #f8fafc;
+  border: 1px solid #e5e7eb;
+}
+
+.receipt-summary div {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  color: #475569;
+  font-size: 15px;
+}
+
+.receipt-summary strong {
+  color: #0f172a;
+}
+
+.receipt-total {
+  margin-top: 8px;
+  padding-top: 16px !important;
+  border-top: 1px solid #dbeafe;
+  font-size: 20px !important;
+  color: #0f172a !important;
+}
+
+.receipt-total strong {
+  color: #2563eb;
+  font-size: 22px;
+}
+
+/* Footer */
+
+.receipt-footer {
+  margin-top: 22px;
+  text-align: center;
+}
+
+.receipt-footer p {
+  color: #64748b;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.receipt-footer strong {
+  color: #2563eb;
+}
+
+.receipt-actions {
+  margin-top: 22px;
+  display: flex;
+  gap: 12px;
+}
+
+.receipt-actions button {
+  flex: 1;
+  border: none;
+  padding: 13px;
+  border-radius: 13px;
+  color: white;
+  font-weight: 800;
+  cursor: pointer;
+  transition: 0.25s ease;
+}
+
+.receipt-print-btn {
+  background: linear-gradient(135deg, #2563eb, #0891b2);
+  box-shadow: 0 10px 24px rgba(37, 99, 235, 0.22);
+}
+
+.receipt-cancel-btn {
+  background: #e5e7eb;
+  color: #334155 !important;
+}
+
+.receipt-actions button:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.03);
+}
+
+/* Responsive */
+
+@media (max-width: 700px) {
+  .receipt-box {
+    padding: 22px;
+  }
+
+  .receipt-order-info {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .receipt-products {
+    overflow-x: auto;
+  }
+
+  .receipt-products-header,
+  .receipt-item {
+    min-width: 560px;
+  }
+}
+
+@media (max-width: 480px) {
+  .receipt-order-info {
+    grid-template-columns: 1fr;
+  }
+
+  .receipt-actions {
+    flex-direction: column;
+  }
+}
+
+/* Printing receipt */
+
+@media print {
+  body * {
+    visibility: hidden;
+  }
+
+  .receipt-box,
+  .receipt-box * {
+    visibility: visible;
+  }
+
+  .receipt-modal-overlay {
+    position: static;
+    display: block;
+    background: white;
+    padding: 0;
+    backdrop-filter: none;
+  }
+
+  .receipt-box {
+    position: absolute;
+    left: 0;
+    top: 0;
+    max-width: 100%;
+    width: 100%;
+    max-height: none;
+    box-shadow: none;
+    border: none;
+    border-radius: 0;
+    background: white;
+    color: black;
+  }
+
+  .receipt-close-btn,
+  .receipt-actions {
+    display: none;
+  }
+}
+
+/* pagination logic */
+.pagination {
+  display: flex;
+  gap: 6px;
+  justify-content: center;
+  margin-top: 20px;
+  align-items: center;
+}
+
+.page-numbers {
+  display: flex;
+  gap: 6px;
+}
+
+#pageNumbers {
+  display: flex;
+  gap: 6px;
+}
+
+.page-btn {
+  padding: 10px 14px;
+  background: #4E0B99;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 4px 15px rgba(78, 11, 153, 0.2);
+  cursor: pointer;
+}
+
+.page-btn:hover {
+  background: #f0f0f0;
+}
+
+.page-btn.active {
+  background: #333;
+  color: #fff;
+  border-color: #333;
+}
+
+.page-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* filter container */
+.filterContainer {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 16px;
+}
+
+.status-filter {
+  padding: 10px 16px;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+  background: #f8fafc;
+  color: #374151;
+  font-size: 0.95rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
 /* ==================== RESPONSIVE QUERIES ==================== */
 @media (max-width: 1100px) {
   .product-img {
@@ -338,7 +831,8 @@
     height: auto;
   }
 
-  .review-btn, .status {
+  .review-btn,
+  .status {
     min-width: 150px;
   }
 
