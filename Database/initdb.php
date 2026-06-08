@@ -25,8 +25,7 @@ CREATE TABLE IF NOT EXISTS users (
     last_name VARCHAR(50) NOT NULL,
     email VARCHAR(100) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
-    phone VARCHAR(20) NULL,
-    address TEXT NULL,
+    current_address_id INT UNSIGNED NULL,
     profile_pic VARCHAR(255) NULL,
     role ENUM('admin', 'user') NOT NULL DEFAULT 'user',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -66,6 +65,7 @@ CREATE TABLE IF NOT EXISTS products (
     stock INT UNSIGNED NOT NULL DEFAULT 0,
     image VARCHAR(255) NULL,
     status ENUM('active', 'inactive') NOT NULL DEFAULT 'active',
+    is_deleted TINYINT(1) DEFAULT 0,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 
     CONSTRAINT fk_products_category
@@ -176,7 +176,7 @@ runQuery($pdo, "
 CREATE TABLE IF NOT EXISTS payments (
     payment_id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     order_id INT UNSIGNED NOT NULL,
-    payment_method ENUM('COD', 'GCash', 'Maya', 'Credit Card') NOT NULL,
+    payment_method ENUM('COD', 'GCash', 'Maya', 'Credit/Debit Card') NOT NULL,
     amount DECIMAL(10,2) NOT NULL CHECK (amount >= 0),
     payment_status ENUM('pending', 'paid', 'failed', 'refunded') NOT NULL DEFAULT 'pending',
     payment_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -297,7 +297,7 @@ runQuery($pdo, "
 CREATE TABLE IF NOT EXISTS dim_payment (
     dim_payment_id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
 
-    payment_method ENUM('COD', 'GCash', 'Maya', 'Credit Card') NOT NULL,
+    payment_method ENUM('COD', 'GCash', 'Maya', 'Credit/Debit Card') NOT NULL,
     payment_status ENUM('pending', 'paid', 'failed', 'refunded') NOT NULL,
 
     UNIQUE (payment_method, payment_status)
