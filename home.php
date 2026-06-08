@@ -15,11 +15,6 @@
   <nav class="navbar">
     <div class="nav-container">
       <h1 class="logo">Smart Tech</h1>
-      
-      <div class="search-container">
-        <i class="fa-solid fa-magnifying-glass search-icon"></i>
-        <input type="text" id="searchInput" onkeyup="searchProduct()" placeholder="Search" class="search-input">
-      </div>
 
       <div class="nav-links">
         <a href="home.php" class="active">Home</a>
