@@ -1,7 +1,7 @@
 <?php
 session_start();
 require_once 'Database/runQuery.php';
-$sql = "SELECT c.cart_id, c.quantity, p.product_id, p.product_name, p.price FROM cart c JOIN products p ON c.product_id = p.product_id WHERE c.user_id = ? ORDER BY c.created_at DESC;";
+$sql = "SELECT c.cart_id, c.quantity, p.product_id, p.product_name, p.price, p.stock, p.image FROM cart c JOIN products p ON c.product_id = p.product_id WHERE c.user_id = ? ORDER BY c.created_at DESC;";
 $cartItems = runQuery($pdo, $sql, [$_SESSION['user_id']], true);
 ?>
 <!DOCTYPE html>
@@ -24,11 +24,6 @@ $cartItems = runQuery($pdo, $sql, [$_SESSION['user_id']], true);
   <nav class="navbar">
     <div class="nav-container">
       <h1 class="logo">Smart Tech</h1>
-
-      <div class="search-container">
-        <i class="fa-solid fa-magnifying-glass search-icon"></i>
-        <input type="text" id="searchInput" onkeyup="searchProduct()" placeholder="Search" class="search-input">
-      </div>
 
       <div class="nav-links">
         <a href="home.php">Home</a>
@@ -78,6 +73,7 @@ $cartItems = runQuery($pdo, $sql, [$_SESSION['user_id']], true);
             <th width="40px"></th>
             <th>Product</th>
             <th>Unit Price</th>
+            <th>Stock</th>
             <th>Quantity</th>
             <th>Total Price</th>
           </tr>
@@ -91,15 +87,16 @@ $cartItems = runQuery($pdo, $sql, [$_SESSION['user_id']], true);
                   class="fa-solid fa-trash" style="color: #dc3545; cursor: pointer;" onclick="removeFromCart(this)"></i>
               </td>
               <td class="product-cell" style="padding-left: 0">
-                <img src="Assets/pictures/GIGABYTE RTX 4090.jpg" alt="RTX 4090" class="product-img">
+                <img src="<?= $item['image'] ?>" alt="<?= $item['product_name'] ?>" class="product-img">
                 <strong><?= $item['product_name'] ?></strong>
               </td>
               <td class="unit-price">₱<?= number_format($item['price'], 2) ?></td>
-              <td>
+              <td class="stock-status"><?= $item['stock'] > 0 ? 'In Stock' : 'Out of Stock' ?></td>
+              <td class="quantity">
                 <div class="quantity-wrapper" style="display:flex; justify-content: center;">
-                  <button class="qty-btn" onclick="changeQty(this, -1)">–</button>
+                  <button class="qty-btn" onclick="changeQty(this, -1, <?= $item['stock'] ?>)" <?= $item['stock'] <= 0 ? 'disabled' : '' ?>>–</button>
                   <span class="qty-value"><?= $item['quantity'] ?></span>
-                  <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
+                  <button class="qty-btn" onclick="changeQty(this, 1, <?= $item['stock'] ?>)" <?= $item['stock'] <= 0 ? 'disabled' : '' ?>>+</button>
                 </div>
               </td>
               <td class="total-price">₱<?= number_format($item['price'] * $item['quantity'], 2) ?></td>
