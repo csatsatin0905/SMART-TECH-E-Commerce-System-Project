@@ -104,25 +104,25 @@
           <div class="stat-card">
             <div class="stat-icon ic-purple"><i class="fa-solid fa-box"></i></div>
             <div class="stat-label">Total Products</div>
-            <div class="stat-value">94</div>
+            <div class="stat-value" id="totalProducts">94</div>
             <div class="stat-sub muted"><i class="fa-solid fa-minus"></i> Across 9 categories</div>
           </div>
           <div class="stat-card">
             <div class="stat-icon ic-green"><i class="fa-solid fa-circle-check"></i></div>
             <div class="stat-label">In Stock</div>
-            <div class="stat-value">88</div>
+            <div class="stat-value" id="inStock">88</div>
             <div class="stat-sub"><i class="fa-solid fa-trending-up"></i> Good availability</div>
           </div>
           <div class="stat-card">
             <div class="stat-icon ic-amber"><i class="fa-solid fa-triangle-exclamation"></i></div>
             <div class="stat-label">Low Stock</div>
-            <div class="stat-value">6</div>
-            <div class="stat-sub down"><i class="fa-solid fa-trending-down"></i> Needs restocking</div>
+            <div class="stat-value" id="lowStock">6</div>
+            <div class="stat-sub down"><i class="fa-solid fa-trending-down"></i> Needs restocking (&lt;11)</div>
           </div>
           <div class="stat-card">
             <div class="stat-icon ic-red"><i class="fa-solid fa-ban"></i></div>
             <div class="stat-label">Out of Stock</div>
-            <div class="stat-value">0</div>
+            <div class="stat-value" id="outOfStock">0</div>
             <div class="stat-sub muted"><i class="fa-solid fa-minus"></i> None out of stock</div>
           </div>
         </div>
@@ -164,7 +164,7 @@
                   <th>Actions</th>
                 </tr>
               </thead>
-              <tbody id="productsBody"></tbody>
+              <tbody id="productsBody"><!--js data will be placed here--></tbody>
             </table>
           </div>
         </div>
@@ -184,13 +184,17 @@
         <!-- Image Field -->
         <div class="form-row">
           <div class="form-group" style="grid-column: 1 / -1;">
-            <label>Product Image Path</label>
-            <input type="text" id="fImage" placeholder="added_IMG_Products/des1.png" oninput="previewImage(this.value)">
+            <label>Product Image</label>
+            <div class="file-upload-container">
+              <label for="productImage" class="file-upload-square">
+                <span class="upload-plus">+</span>
+                <span class="upload-text">Upload Image</span>
+
+                <input type="file" id="productImage" name="product_image"
+                  accept="image/jpg, image/jpeg, image/png, image/webp" hidden>
+              </label>
+            </div>
             <div id="imagePreview" class="image-preview"></div>
-            <small style="color:#666; font-size:12px; margin-top:4px; display:block;">
-              Put image in <strong>added_IMG_Products</strong> folder, then type path like:<br>
-              <code>added_IMG_Products/yourimage.png</code>
-            </small>
           </div>
         </div>
 
@@ -212,15 +216,15 @@
           <div class="form-group">
             <label>Category</label>
             <select id="fCategory">
-              <option value="1">GPU</option>
-              <option value="2">CPU</option>
-              <option value="3">Motherboard</option>
-              <option value="4">RAM</option>
-              <option value="5">Storage</option>
-              <option value="6">PSU</option>
-              <option value="7">Cooling</option>
-              <option value="8">Accessories</option>
-              <option value="9">Case</option>
+              <option value="1">Accessories</option>
+              <option value="2">Case</option>
+              <option value="3">Cooling System</option>
+              <option value="4">CPU</option>
+              <option value="5">GPU</option>
+              <option value="6">Motherboard</option>
+              <option value="7">PSU</option>
+              <option value="8">RAM</option>
+              <option value="9">Storage</option>
             </select>
           </div>
           <div class="form-group">
