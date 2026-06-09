@@ -13,12 +13,14 @@ $result = runQuery($pdo, $sql, [$categoryID], true);
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Smart Tech Products</title>
 
-  <link rel="stylesheet" href="../Assets/CSS/extra-home.css">
   <link rel="stylesheet" href="../Assets/CSS/navBar.css">
   <link rel="stylesheet" href="../Assets/CSS/category.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="../Assets/CSS/notifications.css">
   <script src="../Assets/JavaScript/script.js" defer></script>
   <script src="../Assets/JavaScript/product.js" defer></script>
+  <link rel="stylesheet" href="../Assets/JavaScript/SweetAlert2/sweetalert2.min.css">
+  <script src="../Assets/JavaScript/SweetAlert2/sweetalert2.all.min.js"></script>
 </head>
 
 <body>
@@ -44,6 +46,7 @@ $result = runQuery($pdo, $sql, [$categoryID], true);
             <i class="fa-solid fa-user"></i>
           </div>
         </a>
+        <?php include '../reusable-notif.php'; ?>
       </div>
     </div>
   </nav>
@@ -176,7 +179,11 @@ $result = runQuery($pdo, $sql, [$categoryID], true);
         });
         const result = await response.json();
       } catch (error) {
-        console.error('Error adding to cart:', error); //will place sweetalert here
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'Failed to add product to cart. Please try again.',
+        });
       }
     }
 
@@ -197,6 +204,11 @@ $result = runQuery($pdo, $sql, [$categoryID], true);
       document.querySelectorAll('.product-card').forEach(card => card.style.display = 'flex');
     });
   </script>
+
+  <script>
+    let dots = "../";
+  </script>
+  <script src="../Assets/JavaScript/notifications.js"></script>
 
 </body>
 

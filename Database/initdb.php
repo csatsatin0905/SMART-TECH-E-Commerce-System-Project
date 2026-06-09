@@ -197,6 +197,7 @@ CREATE TABLE IF NOT EXISTS reviews (
     product_id INT UNSIGNED NOT NULL,
     comment TEXT NOT NULL,
     review_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    rating INT UNSIGNED NOT NULL CHECK (rating >= 1 AND rating <= 5),
 
     CONSTRAINT fk_reviews_user
         FOREIGN KEY (user_id)
@@ -298,9 +299,8 @@ CREATE TABLE IF NOT EXISTS dim_payment (
     dim_payment_id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
 
     payment_method ENUM('COD', 'GCash', 'Maya', 'Credit/Debit Card') NOT NULL,
-    payment_status ENUM('pending', 'paid', 'failed', 'refunded') NOT NULL,
+    payment_status ENUM('pending', 'paid', 'failed', 'refunded') NOT NULL
 
-    UNIQUE (payment_method, payment_status)
 ) ENGINE=InnoDB;
 ");
 

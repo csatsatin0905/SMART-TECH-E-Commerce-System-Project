@@ -95,7 +95,7 @@ $currentAddress = $stmt->fetch() ?? null;
                 </button>
 
                 <button type="button" class="btn-primary" onclick="showEditMode()">
-                    <i class="fa-solid fa-pen"></i> Edit
+                    <i class="fa-solid fa-pen"></i> Change Address
                 </button>
             </div>
         </div>
@@ -144,34 +144,38 @@ $currentAddress = $stmt->fetch() ?? null;
             </div>
 
             <div class="edit-form" id="editForm" style="display: none;">
-                <input type="hidden" id="addressId" name="address_id">
+                <form id="addressForm">
+                    <input type="hidden" id="addressId" name="address_id">
 
-                <input type="text" id="newFullName" name="full_name" placeholder="Enter Full Name" required>
+                    <input type="text" id="newFullName" name="full_name" placeholder="Enter Full Name" required>
 
-                <input type="text" id="newPhone" name="phone" placeholder="Enter Phone Number" required>
+                    <input type="tel" id="newPhone" name="phone" placeholder="Enter Mobile Number"
+                        pattern="^(09\d{9}|\+639\d{9})$"
+                        title="Enter a valid Philippine mobile number: 09XXXXXXXXX or +639XXXXXXXXX" required>
 
-                <input type="text" id="newAddressLine" name="address_line" placeholder="Enter Complete Address"
-                    required>
+                    <input type="text" id="newAddressLine" name="address_line"
+                        placeholder="Enter House No., Street, and Barangay" required>
 
-                <select id="newProvince" name="province" required>
-                    <option value="">Select Province</option>
-                </select>
+                    <select id="newProvince" name="province" required>
+                        <option value="">Select Province</option>
+                    </select>
 
-                <select id="newCity" name="city" required disabled>
-                    <option value="">Select City</option>
-                </select>
+                    <select id="newCity" name="city" required disabled>
+                        <option value="">Select City</option>
+                    </select>
 
-                <input type="text" id="newPostalCode" name="postal_code" placeholder="Enter Postal Code">
+                    <input type="number" id="newPostalCode" name="postal_code" placeholder="Enter Postal Code">
 
-                <div class="btn-group">
-                    <button type="button" class="btn-secondary" onclick="backToAddressSelect()">
-                        Back
-                    </button>
+                    <div class="btn-group">
+                        <button type="button" class="btn-secondary" onclick="backToAddressSelect()">
+                            Back
+                        </button>
 
-                    <button type="button" class="btn-primary" onclick="saveAddress()">
-                        <i class="fa-solid fa-check"></i> Save
-                    </button>
-                </div>
+                        <button type="submit" class="btn-primary">
+                            <i class="fa-solid fa-check"></i> Save
+                        </button>
+                    </div>
+                </form>
             </div>
 
         </div>

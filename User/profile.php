@@ -1,193 +1,198 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>My Profile | Smart Tech</title>
 
-<link rel="stylesheet" href="../Assets/CSS/navBar.css">
-<link rel="stylesheet" href="../Assets/CSS/dashboard.css">
-<link rel="stylesheet" href="../Assets/CSS/profile.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-<script src="../Assets/JavaScript/script.js" defer></script>
-<script src="../Assets/JavaScript/profile.js" defer></script>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile | Smart Tech</title>
+
+    <link rel="stylesheet" href="../Assets/CSS/navBar.css">
+    <link rel="stylesheet" href="../Assets/CSS/dashboard.css">
+    <link rel="stylesheet" href="../Assets/CSS/profile.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="../Assets/CSS/notifications.css">
+    <script src="../Assets/JavaScript/script.js" defer></script>
+    <script src="../Assets/JavaScript/profile.js" defer></script>
 
 </head>
 
 <body>
 
-  <!-- Navbar -->
-  <nav class="navbar">
-    <div class="nav-container">
-      <h1 class="logo">Smart Tech</h1>
-      
-      <div class="search-container">
-        <i class="fa-solid fa-magnifying-glass search-icon"></i>
-        <input type="text" id="searchInput" onkeyup="searchProduct()" placeholder="Search" class="search-input">
-      </div>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <h1 class="logo">Smart Tech</h1>
 
-      <div class="nav-links">
-        <a href="../home.php">Home</a>
-        <a href="../shop.php">Shop</a>
-        <a href="../order.php">Order</a>
-        <a href="../cart.php">Cart</a>
-        <a href="profile.php" class="active">
-          <div class="profile-icon">
-            <i class="fa-solid fa-user"></i>
-          </div>
-        </a>
-      </div>
+            <div class="search-container">
+                <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                <input type="text" id="searchInput" onkeyup="searchProduct()" placeholder="Search" class="search-input">
+            </div>
+
+            <div class="nav-links">
+                <a href="../home.php">Home</a>
+                <a href="../shop.php">Shop</a>
+                <a href="../order.php">Order</a>
+                <a href="../cart.php">Cart</a>
+                <a href="profile.php" class="active">
+                    <div class="profile-icon">
+                        <i class="fa-solid fa-user"></i>
+                    </div>
+                </a>
+                <?php include '../reusable-notif.php'; ?>
+            </div>
+        </div>
+    </nav>
+
+    <div class="dashboard">
+
+        <aside class="sidebar">
+
+            <div class="user-box">
+                <i class="fa-solid fa-circle-user"></i>
+                <span id="sidebarName">User</span>
+            </div>
+
+            <a href="profile.php" class="active">
+                <i class="fa-solid fa-user"></i>
+                My Profile
+            </a>
+
+            <a href="address.php">
+                <i class="fa-solid fa-location-dot"></i>
+                Address
+            </a>
+            <a href="../home.php" class="home-btn">
+                <i class="fa-solid fa-house"></i>
+                Back to Home
+            </a>
+
+            <a href="#" onclick="logoutUser()">
+                <i class="fa-solid fa-right-from-bracket"></i>
+                Log Out
+            </a>
+
+        </aside>
+
+        <main class="content">
+
+            <div class="welcome-box">
+                <h1 id="welcomeText">Welcome back, User!</h1>
+                <p>Manage your account information</p>
+            </div>
+
+            <div class="profile-card">
+
+                <div class="profile-left">
+                    <i class="fa-solid fa-circle-user big-icon"></i>
+                    <h2 id="profileName">User</h2>
+                </div>
+
+                <button class="btn-primary" onclick="openEditModal()">
+                    <i class="fa-solid fa-pen"></i>
+                    Edit Profile
+                </button>
+
+            </div>
+
+            <div class="info-card">
+
+                <div class="info-row">
+                    <span>Name:</span>
+                    <strong id="displayName">User</strong>
+                </div>
+
+                <div class="info-row">
+                    <span>Phone Number:</span>
+                    <strong id="displayPhone">06967676711</strong>
+                </div>
+
+                <div class="info-row">
+                    <span>Gender:</span>
+                    <strong id="displayGender">Male</strong>
+                </div>
+
+                <div class="info-row">
+                    <span>Date of Birth:</span>
+                    <strong id="displayDob">00/00/0000</strong>
+                </div>
+
+            </div>
+
+        </main>
     </div>
-  </nav>
 
-<div class="dashboard">
-
-    <aside class="sidebar">
-
-        <div class="user-box">
-            <i class="fa-solid fa-circle-user"></i>
-            <span id="sidebarName">User</span>
-        </div>
-
-        <a href="profile.php" class="active">
-            <i class="fa-solid fa-user"></i>
-            My Profile
-        </a>
-
-        <a href="address.php">
-            <i class="fa-solid fa-location-dot"></i>
-            Address
-        </a>
-
-        <a href="notification.php">
-            <i class="fa-solid fa-bell"></i>
-            Notifications
-        </a>
-
-        <a href="../home.php" class="home-btn">
-            <i class="fa-solid fa-house"></i>
-            Back to Home
-        </a>
-
-        <a href="#" onclick="logoutUser()">
-            <i class="fa-solid fa-right-from-bracket"></i>
-            Log Out
-        </a>
-
-    </aside>
-
-    <main class="content">
-
-        <div class="welcome-box">
-            <h1 id="welcomeText">Welcome back, User!</h1>
-            <p>Manage your account information</p>
-        </div>
-
-        <div class="profile-card">
-
-            <div class="profile-left">
-                <i class="fa-solid fa-circle-user big-icon"></i>
-                <h2 id="profileName">User</h2>
+    <div class="modal-overlay" id="editModal">
+        <div class="modal">
+            <div class="modal-head">
+                <h3>Edit Profile</h3>
+                <button class="btn-icon" onclick="closeEditModal()"><i class="fa-solid fa-xmark"></i></button>
             </div>
-
-            <button class="btn-primary" onclick="openEditModal()">
-                <i class="fa-solid fa-pen"></i>
-                Edit Profile
-            </button>
-
-        </div>
-
-        <div class="info-card">
-
-            <div class="info-row">
-                <span>Name:</span>
-                <strong id="displayName">User</strong>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Name</label>
+                    <input type="text" id="editName">
+                </div>
+                <div class="form-group">
+                    <label>Phone Number</label>
+                    <input type="text" id="editPhone">
+                </div>
+                <div class="form-group">
+                    <label>Gender</label>
+                    <select id="editGender">
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Date of Birth</label>
+                    <input type="date" id="editDob">
+                </div>
             </div>
-
-            <div class="info-row">
-                <span>Phone Number:</span>
-                <strong id="displayPhone">06967676711</strong>
+            <div class="modal-foot">
+                <button class="btn-outline" onclick="closeEditModal()">Cancel</button>
+                <button class="btn-primary" onclick="saveProfile()"><i class="fa-solid fa-check"></i> Save
+                    Profile</button>
             </div>
-
-            <div class="info-row">
-                <span>Gender:</span>
-                <strong id="displayGender">Male</strong>
-            </div>
-
-            <div class="info-row">
-                <span>Date of Birth:</span>
-                <strong id="displayDob">00/00/0000</strong>
-            </div>
-
-        </div>
-
-    </main>
-</div>
-
-<div class="modal-overlay" id="editModal">
-    <div class="modal">
-        <div class="modal-head">
-            <h3>Edit Profile</h3>
-            <button class="btn-icon" onclick="closeEditModal()"><i class="fa-solid fa-xmark"></i></button>
-        </div>
-        <div class="modal-body">
-            <div class="form-group">
-                <label>Name</label>
-                <input type="text" id="editName">
-            </div>
-            <div class="form-group">
-                <label>Phone Number</label>
-                <input type="text" id="editPhone">
-            </div>
-            <div class="form-group">
-                <label>Gender</label>
-                <select id="editGender">
-                    <option value="Male">Male</option>
-                    <option value="Female">Female</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label>Date of Birth</label>
-                <input type="date" id="editDob">
-            </div>
-        </div>
-        <div class="modal-foot">
-            <button class="btn-outline" onclick="closeEditModal()">Cancel</button>
-            <button class="btn-primary" onclick="saveProfile()"><i class="fa-solid fa-check"></i> Save Profile</button>
         </div>
     </div>
-</div>
 
-<div class="modal-overlay" id="logoutModal">
-    <div class="modal" style="width: 380px;">
-        <div class="modal-head">
-            <h3>Confirm Logout</h3>
-            <button class="btn-icon" onclick="closeLogoutModal()"><i class="fa-solid fa-xmark"></i></button>
-        </div>
-        <div class="modal-body" style="text-align: center; padding: 30px 20px;">
-            <p style="color: #4b5563; margin: 0;"><strong>Are you sure you want to log out of your<br>account?</strong></p>
-        </div>
-        <div class="modal-foot" style="justify-content: center;">
-            <button class="btn-outline" onclick="closeLogoutModal()">Cancel</button>
-            <button class="btn-primary" style="background: #4E0B99; border: none;" onclick="confirmLogout()">
-                <i class="fa-solid fa-right-from-bracket"></i> Log Out
-            </button>
+    <div class="modal-overlay" id="logoutModal">
+        <div class="modal" style="width: 380px;">
+            <div class="modal-head">
+                <h3>Confirm Logout</h3>
+                <button class="btn-icon" onclick="closeLogoutModal()"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="modal-body" style="text-align: center; padding: 30px 20px;">
+                <p style="color: #4b5563; margin: 0;"><strong>Are you sure you want to log out of
+                        your<br>account?</strong></p>
+            </div>
+            <div class="modal-foot" style="justify-content: center;">
+                <button class="btn-outline" onclick="closeLogoutModal()">Cancel</button>
+                <button class="btn-primary" style="background: #4E0B99; border: none;" onclick="confirmLogout()">
+                    <i class="fa-solid fa-right-from-bracket"></i> Log Out
+                </button>
+            </div>
         </div>
     </div>
-</div>
 
-<div class="modal-overlay" id="successModal">
-    <div class="modal" style="width: 350px;">
-        <div class="modal-body" style="text-align: center; padding: 40px 20px 20px;">
-            <i class="fa-solid fa-circle-check" style="font-size: 4rem; color: #059669; margin-bottom: 15px;"></i>
-            <h3 style="color: #1f2937; margin-bottom: 10px; font-size: 18px;">Success!</h3>
-            <p style="margin-bottom: 25px; color: #6b7280; font-size: 13px;">Your profile has been updated successfully.</p>
-            
-            <button class="btn-primary" onclick="closeSuccessModal()" style="width: 100%; justify-content: center;">Done</button>
+    <div class="modal-overlay" id="successModal">
+        <div class="modal" style="width: 350px;">
+            <div class="modal-body" style="text-align: center; padding: 40px 20px 20px;">
+                <i class="fa-solid fa-circle-check" style="font-size: 4rem; color: #059669; margin-bottom: 15px;"></i>
+                <h3 style="color: #1f2937; margin-bottom: 10px; font-size: 18px;">Success!</h3>
+                <p style="margin-bottom: 25px; color: #6b7280; font-size: 13px;">Your profile has been updated
+                    successfully.</p>
+
+                <button class="btn-primary" onclick="closeSuccessModal()"
+                    style="width: 100%; justify-content: center;">Done</button>
+            </div>
         </div>
     </div>
-</div>
-
+    <script>
+        let dots = "../";
+    </script>
+    <script src="../Assets/JavaScript/notifications.js"></script>
 
 </body>
+
 </html>

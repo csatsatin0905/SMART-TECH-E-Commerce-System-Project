@@ -3,6 +3,9 @@ session_start();
 require_once 'Database/runQuery.php';
 $sql = "SELECT c.cart_id, c.quantity, p.product_id, p.product_name, p.price, p.stock, p.image FROM cart c JOIN products p ON c.product_id = p.product_id WHERE c.user_id = ? ORDER BY c.created_at DESC;";
 $cartItems = runQuery($pdo, $sql, [$_SESSION['user_id']], true);
+
+$sql = "SELECT a.* FROM addresses a JOIN users u ON a.address_id = u.current_address_id WHERE u.user_id = ?;";
+$address = runQuery($pdo, $sql, [$_SESSION['user_id']])->fetch();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -14,6 +17,7 @@ $cartItems = runQuery($pdo, $sql, [$_SESSION['user_id']], true);
   <link rel="stylesheet" href="Assets/CSS/navBar.css">
   <link rel="stylesheet" href="Assets/CSS/cart-css.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="Assets/CSS/notifications.css">
   <script src="Assets/JavaScript/script.js" defer></script>
   <script src="Assets/JavaScript/cart.js" defer></script>
 </head>
@@ -35,6 +39,7 @@ $cartItems = runQuery($pdo, $sql, [$_SESSION['user_id']], true);
             <i class="fa-solid fa-user"></i>
           </div>
         </a>
+        <?php include 'reusable-notif.php'; ?>
       </div>
     </div>
   </nav>
@@ -50,11 +55,11 @@ $cartItems = runQuery($pdo, $sql, [$_SESSION['user_id']], true);
           <i class="fa-solid fa-location-dot location-icon"></i>
           <div class="address-details">
             <div class="user-info">
-              <strong>Mark Francis G. Lampit</strong>
-              <span>09329676767</span>
+              <strong><?= htmlspecialchars($address['full_name'] ?? 'No name provided') ?></strong>
+              <span><?= htmlspecialchars($address['phone'] ?? 'No phone provided') ?></span>
             </div>
             <p class="full-address">
-              Block 5 Lot 25, Santa Rosa 1, Saint Rose Village, Noveleta, Cavite 4105
+              <?= htmlspecialchars($address['address_line'] ?? 'No address provided') . ", " . htmlspecialchars($address['city'] ?? 'No city provided') . ", " . htmlspecialchars($address['province'] ?? 'No province provided') ?>
             </p>
           </div>
         </div>
@@ -107,6 +112,11 @@ $cartItems = runQuery($pdo, $sql, [$_SESSION['user_id']], true);
       </table>
     </div>
   </div>
+
+  <script>
+    let dots = "";
+  </script>
+  <script src="Assets/JavaScript/notifications.js"></script>
 
 
 </body>

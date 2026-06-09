@@ -281,9 +281,27 @@ function loadCitiesByProvince(province) {
     newCity.disabled = false;
 }
 
-function saveAddress() {
-    alert("Connect this to your PHP INSERT address process.");
-    
+document.getElementById('addressForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+    const formData = new FormData(this);
+    saveAddress(formData);
+});
+
+async function saveAddress(formData) {
+    try {
+        const response = await fetch('../Actions/Address/add_new_address.php', {
+            method: "POST",
+            body: formData
+        });
+
+        const data = await response.json();
+        if (data.success) {
+            alert('Address saved successfully');
+            location.reload();
+        }
+    } catch (error) {
+        alert('Error saving address');
+    }
 }
 
 function goBack() {

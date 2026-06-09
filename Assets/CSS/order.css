@@ -76,7 +76,11 @@
 .orders-table td {
   padding: 28px 24px;
   border-bottom: 1px solid #f0e6ff;
-  vertical-align: middle;
+  vertical-align: top;
+}
+
+.orders-table td:not(.product-cell) {
+  padding-top: 95px;
 }
 
 .orders-table td:not(.product-cell) {
@@ -86,6 +90,7 @@
 /* Product Structural Frame */
 .product-cell {
   display: flex;
+  flex-direction: column;
   align-items: center;
   gap: 24px;
 }
@@ -106,6 +111,21 @@
   color: #1f2937;
 }
 
+.order-item {
+  display: flex;
+  gap: 12px;
+}
+
+.order-item img,
+.order-item div {
+  flex: 1;
+}
+
+.item-details {
+  display: flex;
+  align-items: center;
+}
+
 /* ==================== STATUS COLUMN ==================== */
 .status-col {
   text-align: center;
@@ -116,7 +136,7 @@
 .status {
   padding: 10px 28px;
   border-radius: 50px;
-  font-size: 0.97rem;
+  font-size: 0.98rem;
   font-weight: 600;
   display: inline-flex;
   align-items: center;
@@ -127,22 +147,22 @@
 }
 
 .status.pending {
-  background: #fbbf24;
-  color: white;
+  background: #fef3c7;
+  color: #92400e;
 }
 
 .status.processing {
-  background: #3b82f6;
+  background: #2563eb;
   color: white;
 }
 
 .status.shipped {
-  background: #10b981;
+  background: #7c3aed;
   color: white;
 }
 
 .status.delivered {
-  background: #6B21A8;
+  background: #16A34A;
   color: white;
 }
 
@@ -174,7 +194,6 @@
 }
 
 .receipt-btn {
-  font-size: 0.95rem;
   background: #180bd3;
 }
 
@@ -810,6 +829,30 @@
   transition: all 0.3s ease;
 }
 
+/* cancel button */
+.cancel-btn {
+  background: #ef4444;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  font-size: 0.98rem;
+  font-weight: 600;
+  border-radius: 50px;
+}
+
+.cancel-btn:disabled {
+  background: #f3f4f6;
+  color: #9ca3af;
+  cursor: not-allowed;
+}
+
+.cancel-btn:hover {
+  background: #dc2626;
+}
+
 /* ==================== RESPONSIVE QUERIES ==================== */
 @media (max-width: 1100px) {
   .product-img {
@@ -832,6 +875,7 @@
   }
 
   .review-btn,
+  .cancel-btn,
   .status {
     min-width: 150px;
   }

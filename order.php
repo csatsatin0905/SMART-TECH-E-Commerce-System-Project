@@ -8,8 +8,11 @@
   <link rel="stylesheet" href="Assets/CSS/navBar.css">
   <link rel="stylesheet" href="Assets/CSS/order.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="Assets/CSS/notifications.css">
   <script src="Assets/JavaScript/script.js" defer></script>
   <script src="Assets/JavaScript/order.js" defer></script>
+  <link rel="stylesheet" href="Assets/JavaScript/SweetAlert2/sweetalert2.min.css">
+  <script src="Assets/JavaScript/SweetAlert2/sweetalert2.all.min.js"></script>
 </head>
 
 <body>
@@ -91,11 +94,6 @@
     <div class="nav-container">
       <h1 class="logo">Smart Tech</h1>
 
-      <div class="search-container">
-        <i class="fa-solid fa-magnifying-glass search-icon"></i>
-        <input type="text" id="searchInput" onkeyup="searchOrders()" placeholder="Search Orders" class="search-input">
-      </div>
-
       <div class="nav-links">
         <a href="home.php">Home</a>
         <a href="shop.php">Shop</a>
@@ -106,6 +104,7 @@
             <i class="fa-solid fa-user"></i>
           </div>
         </a>
+        <?php include 'reusable-notif.php'; ?>
       </div>
     </div>
   </nav>
@@ -129,11 +128,10 @@
           <tr>
             <th>Product Ordered</th>
             <th>Order ID</th>
-            <th>Unit Price</th>
-            <th>Quantity</th>
             <th>Total Price</th>
             <th>Status</th>
             <th>Receipt</th>
+            <th>Action</th>
           </tr>
         </thead>
         <tbody>
@@ -198,6 +196,7 @@
         }
         const data = await response.json();
         orders = data;
+        console.log(orders);
         totalPages = Math.ceil(orders.length / limit);
         ordersToShow = orders.slice((currentPage - 1) * limit, currentPage * limit);
         renderOrders(ordersToShow);
@@ -215,32 +214,48 @@
     fetchOrders();
 
     function renderOrders(ordersList = orders) {
+      console.log(ordersList);
       const ordersTableBody = document.querySelector(".orders-table tbody");
       ordersTableBody.innerHTML = "";
+
+      if (ordersList.length === 0) {
+        ordersTableBody.innerHTML = `<tr><td colspan="7" style="text-align: center; padding: 20px; height: 100px;">No orders found.</td></tr>`;
+        prevBtn.style.display = "none";
+        nextBtn.style.display = "none";
+        return;
+      }
 
       ordersList.forEach(function (order) {
         const row = document.createElement("tr");
 
         row.innerHTML = `
             <td class="product-cell">
-              <img src="${order.image}" alt="${order.product_name}" class="product-img">
-              <div class="product-info">
-                <strong>${order.product_name}</strong>
-              </div>
+              ${order.items}
             </td>
             <td>ORD-${order.order_id}</td>
-            <td>₱${Number(order.price).toLocaleString("en-PH", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
-            <td class="qty-col">${order.quantity}</td>
-            <td class="price-col">₱${Number(order.price * order.quantity).toLocaleString("en-PH", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
+            <td class="price-col">₱${Number(order.total_amount).toLocaleString("en-PH", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
             <td class="status-col">
               <span class="status ${order.order_status.toLowerCase()}">
                 ${order.order_status.charAt(0).toUpperCase() + order.order_status.slice(1)}
               </span>
-            </td>
+
+            </td >
             <td class="receipt-col">
-                <button class="receipt-btn" onclick='fetchReceiptData(${order.order_id})'>View Receipt</button>
+              <button class="receipt-btn" onclick='fetchReceiptData(${order.order_id})'>View Receipt</button>
             </td>
-          `;
+            <td>
+                ${order.order_status.toLowerCase() !== 'delivered' ? '<button type="button" class="cancel-btn" onclick="cancelOrder(' + order.order_id + ')">Cancel</button>' : ''}
+                ${order.order_status.toLowerCase() === 'delivered' ? `<button type="button" class="review-btn" onclick="openReviewModal()">
+                <i class="fa-solid fa-comment"></i> Write Review</button>` : ''}
+            </td>
+        `;
+        if (order.order_status.toLowerCase() !== 'delivered') {
+          const cancelBtn = row.querySelector(".cancel-btn");
+          if (order.order_status.toLowerCase() === 'cancelled' || order.order_status.toLowerCase() === 'shipped' || order.order_status.toLowerCase() === 'processing') {
+            cancelBtn.disabled = true;
+            cancelBtn.classList.add("disabled-btn");
+          }
+        }
         ordersTableBody.appendChild(row);
       });
     }
@@ -300,7 +315,7 @@
       const query = document.getElementById("searchInput").value.toLowerCase();
       const filteredOrders = orders.filter(order =>
         order.product_name.toLowerCase().includes(query) ||
-        (`ORD-${order.order_id}`).toLowerCase().includes(query) ||
+        (`ORD - ${order.order_id} `).toLowerCase().includes(query) ||
         order.order_status.toLowerCase().includes(query)
       );
       renderOrders(filteredOrders);
@@ -377,10 +392,10 @@
         row.className = "receipt-item";
 
         row.innerHTML = `
-      <div class="receipt-product-name">
-        <strong>${item.product_name}</strong>
-        <small>${item.category_name}</small>
-      </div>
+        <div class="receipt-product-name" >
+          <strong>${item.product_name}</strong>
+          <small>${item.category_name}</small>
+        </div>
 
       <span class="receipt-center">${item.quantity}</span>
 
@@ -417,7 +432,66 @@
         closeReceiptModal();
       }
     });
+
+    async function cancelOrder(orderId) {
+      const result = await Swal.fire({
+        title: 'Are you sure?',
+        text: "Do you really want to cancel this order?",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: 'Yes, cancel it!',
+        cancelButtonText: 'No, keep it'
+      });
+
+      if (!result.isConfirmed) {
+        return;
+      }
+
+      const formData = new FormData();
+      formData.append("order_id", orderId);
+      formData.append("status", "cancelled");
+
+      try {
+        const response = await fetch('Actions/Admin_Orders/change_status.php', {
+          method: 'POST',
+          body: formData
+        });
+
+        if (!response.ok) {
+          console.error("Failed to cancel order");
+          return;
+        }
+
+        const data = await response.json();
+        if (data.success) {
+          Swal.fire({
+            title: 'Order Cancelled',
+            text: 'Your order has been cancelled successfully.',
+            icon: 'success',
+            confirmButtonText: 'OK'
+          });
+          fetchOrders();
+        } else {
+          Swal.fire({
+            title: 'Error',
+            text: "Error cancelling order: " + data.error,
+            icon: 'error',
+            confirmButtonText: 'OK'
+          });
+        }
+      } catch (error) {
+        console.error("Error cancelling order:", error);
+      }
+    }
   </script>
+
+  <script>
+    let dots = "";
+  </script>
+  <script src="Assets/JavaScript/notifications.js"></script>
+
 </body>
 
 </html>

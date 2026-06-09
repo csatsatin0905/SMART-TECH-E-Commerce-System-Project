@@ -5,7 +5,7 @@ $productID = $_GET['product_id'] ?? 1; // Default to 1 if not provided
 $sql = "SELECT * FROM products WHERE product_id = ?;";
 $product = runQuery($pdo, $sql, [$productID])->fetch();
 
-$sql = "SELECT r.*, u.first_name, u.last_name FROM reviews r JOIN users u ON r.user_id = u.user_id WHERE r.product_id = ?;";
+$sql = "SELECT r.*, u.first_name, u.last_name FROM reviews r JOIN users u ON r.user_id = u.user_id WHERE r.product_id = ? ORDER BY r.review_date DESC";
 $reviews = runQuery($pdo, $sql, [$productID], true);
 ?>
 <!DOCTYPE html>
@@ -15,12 +15,14 @@ $reviews = runQuery($pdo, $sql, [$productID], true);
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title><?= $product['product_name'] ?> - Smart Tech</title>
-  <link rel="stylesheet" href="Assets/CSS/extra-home.css">
   <link rel="stylesheet" href="Assets/CSS/navBar.css">
   <link rel="stylesheet" href="Assets/CSS/product-css.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="Assets/CSS/notifications.css">
   <script src="Assets/JavaScript/script.js" defer></script>
   <script src="Assets/JavaScript/product.js" defer></script>
+  <link rel="stylesheet" href="Assets/JavaScript/SweetAlert2/sweetalert2.min.css">
+  <script src="Assets/JavaScript/SweetAlert2/sweetalert2.all.min.js"></script>
 </head>
 
 <body>
@@ -40,6 +42,7 @@ $reviews = runQuery($pdo, $sql, [$productID], true);
             <i class="fa-solid fa-user"></i>
           </div>
         </a>
+        <?php include 'reusable-notif.php'; ?>
       </div>
     </div>
   </nav>
@@ -84,19 +87,65 @@ $reviews = runQuery($pdo, $sql, [$productID], true);
       </div>
     </div>
 
+    <form class="review-form">
+      <label class="rating-label">Rate this product</label>
+
+      <div class="star-rating">
+        <input type="radio" id="star5" name="rating" value="5">
+        <label for="star5">★</label>
+
+        <input type="radio" id="star4" name="rating" value="4">
+        <label for="star4">★</label>
+
+        <input type="radio" id="star3" name="rating" value="3">
+        <label for="star3">★</label>
+
+        <input type="radio" id="star2" name="rating" value="2">
+        <label for="star2">★</label>
+
+        <input type="radio" id="star1" name="rating" value="1">
+        <label for="star1">★</label>
+      </div>
+
+      <textarea name="comment" id="comment" placeholder="Write your comment..." required></textarea>
+
+      <button type="submit">Submit Review</button>
+    </form>
+
     <!-- Reviews -->
     <div class="reviews-section">
       <h2>Customer Reviews</h2>
 
       <?php foreach ($reviews as $review): ?>
         <div class="review-card">
+
           <div class="review-header">
-            <div class="avatar"><?= substr($review['first_name'], 0, 1) . substr($review['last_name'], 0, 1) ?></div>
-            <div>
-              <strong class="reviewer-name"><?= $review['first_name'] ?>   <?= $review['last_name'] ?></strong>
+            <div class="avatar">
+              <?= substr($review['first_name'], 0, 1) . substr($review['last_name'], 0, 1) ?>
+            </div>
+
+            <div class="review-info">
+              <strong class="reviewer-name">
+                <?= $review['first_name'] ?>   <?= $review['last_name'] ?>
+              </strong>
+
+              <div class="review-date">
+                <?= date('F j, Y', strtotime($review['review_date'])) ?>
+              </div>
+            </div>
+
+            <div class="review-stars">
+              <?php for ($i = 0; $i < 5; $i++): ?>
+                <i class="fa-solid fa-star" style="color: <?= $i < $review['rating'] ? '#fbbf24' : '#e5e7eb' ?>">
+                </i>
+              <?php endfor; ?>
             </div>
           </div>
-          <p class="review-text"><?= $review['comment'] ?></p>
+
+          <p class="review-text">
+            <?= $review['comment'] ?>
+          </p>
+
         </div>
       <?php endforeach; ?>
     </div>
@@ -137,11 +186,72 @@ $reviews = runQuery($pdo, $sql, [$productID], true);
         });
         const result = await response.json();
       } catch (error) {
-        console.error('Error adding to cart:', error); //will place sweetalert here
+        Swal.fire({
+          title: 'Error',
+          text: 'Failed to add product to cart. Please try again.',
+          icon: 'error',
+          confirmButtonText: 'OK'
+        });
+      }
+    }
+
+    const commentForm = document.querySelector('.review-form');
+    commentForm.addEventListener('submit', submitComment);
+
+    async function submitComment(event) {
+      event.preventDefault();
+      const commentText = document.getElementById('comment').value.trim();
+
+      if (commentText === "") {
+        Swal.fire({
+          title: 'Error',
+          text: 'Please enter a comment.',
+          icon: 'error',
+          confirmButtonText: 'OK'
+        });
+        return;
+      }
+
+      const formData = new FormData();
+      const rating = document.querySelector('input[name="rating"]:checked');
+      formData.append('rating', rating ? rating.value : 0);
+      formData.append('product_id', <?= $productID ?>);
+      formData.append('comment', commentText);
+
+
+      try {
+        const response = await fetch('Actions/Product/submit-comment.php', {
+          method: 'POST',
+          body: formData
+        });
+        const result = await response.json();
+
+        if (result.success) {
+          location.reload(); // Refresh to show the new comment
+        } else {
+          Swal.fire({
+            title: 'Error',
+            text: 'Failed to submit comment.',
+            icon: 'error',
+            confirmButtonText: 'OK'
+          });
+        }
+      } catch (error) {
+        Swal.fire({
+          title: 'Error',
+          text: 'An error occurred while submitting the comment.',
+          icon: 'error',
+          confirmButtonText: 'OK'
+        });
       }
     }
 
   </script>
+
+  <script>
+    let dots = "";
+  </script>
+  <script src="Assets/JavaScript/notifications.js"></script>
 
 
 </body>

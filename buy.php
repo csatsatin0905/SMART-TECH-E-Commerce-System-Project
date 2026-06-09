@@ -8,6 +8,9 @@ if (empty($cartItems)) {
   exit;
 }
 $totalPrice = 0;
+
+$sql = "SELECT a.* FROM addresses a JOIN users u ON a.address_id = u.current_address_id WHERE u.user_id = ?;";
+$address = runQuery($pdo, $sql, [$_SESSION['user_id']])->fetch();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -19,8 +22,11 @@ $totalPrice = 0;
   <link rel="stylesheet" href="Assets/CSS/navBar.css">
   <link rel="stylesheet" href="Assets/CSS/buy-css.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="Assets/CSS/notifications.css">
   <script src="Assets/JavaScript/script.js" defer></script>
   <script src="Assets/JavaScript/buy.js" defer></script>
+  <link rel="stylesheet" href="Assets/JavaScript/SweetAlert2/sweetalert2.min.css">
+  <script src="Assets/JavaScript/SweetAlert2/sweetalert2.all.min.js"></script>
 </head>
 
 <body>
@@ -40,6 +46,7 @@ $totalPrice = 0;
             <i class="fa-solid fa-user"></i>
           </div>
         </a>
+        <?php include 'reusable-notif.php'; ?>
       </div>
     </div>
   </nav>
@@ -54,11 +61,11 @@ $totalPrice = 0;
           <i class="fa-solid fa-location-dot location-icon"></i>
           <div class="address-details">
             <div class="user-info">
-              <strong>Mark Francis G. Lampit</strong>
-              <span>09329676767</span>
+              <strong><?= htmlspecialchars($address['full_name'] ?? 'No name provided') ?></strong>
+              <span><?= htmlspecialchars($address['phone'] ?? 'No phone provided') ?></span>
             </div>
             <p class="full-address">
-              Block 5 Lot 25, Santa Rosa 1, Saint Rose Village, Noveleta, Cavite 4105
+              <?= htmlspecialchars($address['address_line'] ?? 'No address provided') . ", " . htmlspecialchars($address['city'] ?? 'No city provided') . ", " . htmlspecialchars($address['province'] ?? 'No province provided') ?>
             </p>
           </div>
         </div>
@@ -141,12 +148,29 @@ $totalPrice = 0;
   </div>
 
   <script>
+    let address = <?= json_encode($address) ?>;
     async function placeOrder() {
       //alerts will be later replaced with sweet alerts
       if (paymentMethod == "") {
-        alert('Please select a payment method.');
+        Swal.fire({
+          title: 'Error',
+          text: 'Please select a payment method.',
+          icon: 'error',
+          confirmButtonText: 'OK'
+        });
         return;
       }
+
+      if (!address) {
+        Swal.fire({
+          title: 'Error',
+          text: 'Please set a delivery address before placing your order.',
+          icon: 'error',
+          confirmButtonText: 'OK'
+        });
+        return;
+      }
+
       const formData = new FormData();
       formData.append('total_price', <?= $totalPrice ?>);
       formData.append('payment_method', paymentMethod);
@@ -164,13 +188,28 @@ $totalPrice = 0;
             window.location.href = 'order.php';
           }, 2000);
         } else {
-          alert('Failed to place order: ' + result.error);
+          Swal.fire({
+            title: 'Error',
+            text: 'Failed to place order: ' + result.error,
+            icon: 'error',
+            confirmButtonText: 'OK'
+          });
         }
       } catch (error) {
-        alert('An error occurred: ' + error.message);
+        Swal.fire({
+          title: 'Error',
+          text: 'An error occurred: ' + error.message,
+          icon: 'error',
+          confirmButtonText: 'OK'
+        });
       }
     }
   </script>
+
+  <script>
+    let dots = "";
+  </script>
+  <script src="Assets/JavaScript/notifications.js"></script>
 
 </body>
 

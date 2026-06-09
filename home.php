@@ -1,14 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Smart Tech</title>
   <link rel="stylesheet" href="Assets/CSS/navBar.css">
   <link rel="stylesheet" href="Assets/CSS/home-css.css">
+  <link rel="stylesheet" href="Assets/CSS/notifications.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <script src="Assets/JavaScript/script.js" defer></script>
 </head>
+
 <body>
 
   <!-- Navbar -->
@@ -26,6 +29,8 @@
             <i class="fa-solid fa-user"></i>
           </div>
         </a>
+
+        <?php include 'reusable-notif.php'; ?>
       </div>
     </div>
   </nav>
@@ -36,7 +41,7 @@
       <div class="hero-text">
         <h1>Premium Parts.<br><span class="highlight">Powerful Performance.</span></h1>
         <p>High Performance PC components and stunning prebuilt system for gamers, creators, and pros.</p>
-        
+
         <div class="hero-buttons">
           <a href="shop.php" class="btn primary-btn">Shop all parts →</a>
           <!--<a href="#" class="btn secondary-btn">Shop Pre-Built PCs →</a>-->
@@ -92,7 +97,7 @@
       <h2>Shop by Categories</h2>
       <a href="shop.php" class="view-all">View All Category <i class="fa-solid fa-arrow-right"></i></a>
     </div>
-    
+
     <div class="category-featured-grid">
       <a href="Categories/categories.php?category_id=5" class="featured-card">
         <img src="Assets/pictures/GPU.png" alt="GPU">
@@ -122,7 +127,7 @@
         <span class="shop-now">Shop now →</span>
       </a>
     </div>
-    
+
   </section>
 
   <!--Prebuilt Gaming PCs 
@@ -141,8 +146,11 @@
   </section>
   -->
 
-  
+  <script>
+    let dots = "";
+  </script>
+  <script src="Assets/JavaScript/notifications.js"></script>
 
-  
 </body>
+
 </html>

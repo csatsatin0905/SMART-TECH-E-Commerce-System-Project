@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,18 +8,21 @@
   <link rel="stylesheet" href="Assets/CSS/navBar.css">
   <link rel="stylesheet" href="Assets/CSS/shop-css.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="Assets/CSS/notifications.css">
   <script src="Assets/JavaScript/script.js" defer></script>
 </head>
+
 <body>
 
   <!-- Navbar -->
   <nav class="navbar">
     <div class="nav-container">
       <h1 class="logo">Smart Tech</h1>
-      
+
       <div class="search-container">
         <i class="fa-solid fa-magnifying-glass search-icon"></i>
-        <input type="text" id="searchInput" onkeyup="searchProduct()" placeholder="Search category" class="search-input">
+        <input type="text" id="searchInput" onkeyup="searchProduct()" placeholder="Search category"
+          class="search-input">
       </div>
 
       <div class="nav-links">
@@ -31,14 +35,15 @@
             <i class="fa-solid fa-user"></i>
           </div>
         </a>
+        <?php include 'reusable-notif.php'; ?>
       </div>
     </div>
   </nav>
 
   <!-- Breadcrumb -->
   <div class="breadcrumb">
-    <a href="home.php">HOME</a> 
-    <span class="separator">/</span> 
+    <a href="home.php">HOME</a>
+    <span class="separator">/</span>
     <span class="current">SHOP</span>
   </div>
 
@@ -77,7 +82,7 @@
         <img src="Assets/pictures/motherBoard.png" alt="Motherboard">
         <p>Motherboard</p>
       </a>
-    
+
       <a href="Categories/categories.php?category_id=7" class="category-card">
         <img src="Assets/pictures/PSU.png" alt="PSU">
         <p>PSU (Power Supply)</p>
@@ -97,6 +102,12 @@
 
   </section>
 
-  
+    <script>
+        let dots = "";
+    </script>  
+<script src="Assets/JavaScript/notifications.js"></script>
+
+
 </body>
+
 </html>

@@ -20,6 +20,8 @@
       <div class="sb-nav">
         <div class="sb-label">Main</div>
         <a href="adminDashboard.php" class="sb-item"><i class="fa-solid fa-gauge-high"></i> Dashboard</a>
+        <a href="adminAnalytics.php" class="sb-item"><i class="fa-solid fa-chart-area"></i>
+          <span>Analytics</span></a>
         <a href="adminProducts.php" class="sb-item active"><i class="fa-solid fa-box"></i> Products</a>
         <a href="adminOrders.php" class="sb-item"><i class="fa-solid fa-cart-shopping"></i> Orders</a>
         <a href="adminUsers.php" class="sb-item"><i class="fa-solid fa-users"></i> Customers</a>
