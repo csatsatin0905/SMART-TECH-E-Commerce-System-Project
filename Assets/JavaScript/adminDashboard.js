@@ -43,43 +43,7 @@
     }
   });
 
-  // Toggles for UI elements
-  const notifTrigger = document.getElementById('notifTrigger');
-  const notifDropdown = document.getElementById('notifDropdown');
-  const profileTrigger = document.getElementById('profileMenuTrigger');
-  const profileMenu = document.getElementById('profileMenu');
 
-  // Toggle Notification Center Window Box
-  notifTrigger.addEventListener('click', (e) => {
-    e.stopPropagation();
-    notifDropdown.classList.toggle('show');
-    profileMenu.classList.remove('show'); // Auto collapse profile menu if active
-  });
-
-  // Toggle Profile Badge Dropdown Logout menu
-  profileTrigger.addEventListener('click', (e) => {
-    e.stopPropagation();
-    profileMenu.classList.toggle('show');
-    notifDropdown.classList.remove('show'); // Auto collapse notification panel if active
-  });
-
-  // Structural Event Listener capturing outside body workspace layout clicks to safely hide active panels
-  document.addEventListener('click', (e) => {
-    if (!notifDropdown.contains(e.target) && e.target !== notifTrigger) {
-      notifDropdown.classList.remove('show');
-    }
-    if (!profileMenu.contains(e.target) && !profileTrigger.contains(e.target)) {
-      profileMenu.classList.remove('show');
-    }
-  });
-
-  // Handle active class changes across filter header buttons
-  document.querySelectorAll('.pt').forEach(btn => {
-    btn.addEventListener('click', () => {
-      document.querySelectorAll('.pt').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-    });
-  });
 
 // Log out function
 function handleLogout() {

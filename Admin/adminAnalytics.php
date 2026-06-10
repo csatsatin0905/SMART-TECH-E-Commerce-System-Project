@@ -122,6 +122,7 @@ $mostUsedPaymentMethod = $stmt->fetch(PDO::FETCH_ASSOC);
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
   <script src="../Assets/JavaScript/adminDashboard.js" defer></script>
   <script src="../Actions/Analytics/chart.umd.min.js" defer></script>
+  <link rel="stylesheet" href="../Assets/CSS/notifications.css">
   <style>
     select {
       min-width: 50px;
@@ -197,81 +198,30 @@ $mostUsedPaymentMethod = $stmt->fetch(PDO::FETCH_ASSOC);
         <div class="topbar-right">
           <div class="date-chip"><i class="fa-solid fa-calendar" style="margin-right:6px;"></i>May 2026</div>
 
-          <div class="notif-wrapper">
-            <div class="notif-btn" id="notifTrigger">
-              <i class="fa-solid fa-bell"></i>
-              <div class="notif-dot"></div>
-            </div>
-
-            <div class="notif-dropdown-window" id="notifDropdown">
-              <div class="nd-header">
-                <h3>Notifications</h3>
-                <button type="button" class="nd-mark-read-btn">Mark all read</button>
-              </div>
-              <div class="nd-body-scroller">
-                <div class="nd-item unread">
-                  <div class="nd-icon purple"><i class="fa-solid fa-cart-shopping"></i></div>
-                  <div class="nd-content">
-                    <p>New order received <strong>#ST-9482</strong> from John D.</p>
-                    <span class="nd-time">2 mins ago</span>
-                  </div>
-                </div>
-                <div class="nd-item unread">
-                  <div class="nd-icon amber"><i class="fa-solid fa-triangle-exclamation"></i></div>
-                  <div class="nd-content">
-                    <p>Stock Alert: <strong>Ryzen 9 7950X</strong> is down to 2 units.</p>
-                    <span class="nd-time">1 hr ago</span>
-                  </div>
-                </div>
-                <div class="nd-item">
-                  <div class="nd-icon green"><i class="fa-solid fa-peso-sign"></i></div>
-                  <div class="nd-content">
-                    <p>Daily sales payout total reached target goal of ₱80k.</p>
-                    <span class="nd-time">5 hrs ago</span>
-                  </div>
-                </div>
-                <div class="nd-item">
-                  <div class="nd-icon blue"><i class="fa-solid fa-user-plus"></i></div>
-                  <div class="nd-content">
-                    <p>New customer account verified: <strong>Maria S.</strong></p>
-                    <span class="nd-time">1 day ago</span>
-                  </div>
-                </div>
-                <div class="nd-item">
-                  <div class="nd-icon purple"><i class="fa-solid fa-box-open"></i></div>
-                  <div class="nd-content">
-                    <p>Batch replenishment inventory update processed.</p>
-                    <span class="nd-time">2 days ago</span>
-                  </div>
-                </div>
-                <div class="nd-item">
-                  <div class="nd-icon purple"><i class="fa-solid fa-box-open"></i></div>
-                  <div class="nd-content">
-                    <p>Batch replenishment inventory update processed.</p>
-                    <span class="nd-time">2 days ago</span>
-                  </div>
-                </div>
-                <div class="nd-item">
-                  <div class="nd-icon purple"><i class="fa-solid fa-box-open"></i></div>
-                  <div class="nd-content">
-                    <p>Batch replenishment inventory update processed.</p>
-                    <span class="nd-time">2 days ago</span>
-                  </div>
-                </div>
-                <div class="nd-item">
-                  <div class="nd-icon purple"><i class="fa-solid fa-box-open"></i></div>
-                  <div class="nd-content">
-                    <p>Batch replenishment inventory update processed.</p>
-                    <span class="nd-time">2 days ago</span>
-                  </div>
-                </div>
-              </div>
-              <!--<a href="allNotifications.html" class="nd-footer-link">View all updates</a>-->
-            </div>
-          </div>
+          <?php include "../reusable-notif.php"; ?>
 
         </div>
       </div>
+
+      <div style="display: flex; justify-content: flex-end; padding-top: 15px; padding-right: 30px;">
+        <a href="../Actions/Analytics/export_analytics_report.php" style="
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:10px 16px;
+      background:#4E0B99;
+      color:white;
+      border-radius:10px;
+      text-decoration:none;
+      font-weight:600;
+      font-size:14px;
+   ">
+          <i class="fa-solid fa-file-excel"></i>
+          Export Excel Report
+        </a>
+      </div>
+
+
 
       <div class="content">
         <div class="stat-grid">
@@ -283,12 +233,12 @@ $mostUsedPaymentMethod = $stmt->fetch(PDO::FETCH_ASSOC);
           <div class="stat-card">
             <div class="stat-icon ic-green"><i class="fa-solid fa-cart-shopping"></i></div>
             <div class="stat-label">Total Orders</div>
-            <div class="stat-value"> <?= $totalOrders ?></div>
+            <div class="stat-value"> <?= $totalOrders ?? 'N/A' ?></div>
           </div>
           <div class="stat-card">
             <div class="stat-icon ic-amber"><i class="fa-solid fa-box"></i></div>
             <div class="stat-label">Total Products Sold</div>
-            <div class="stat-value"><?= $totalProductsSold ?></div>
+            <div class="stat-value"><?= $totalProductsSold ?? 'N/A' ?></div>
           </div>
           <div class="stat-card">
             <div class="stat-icon ic-blue"><i class="fa-solid fa-cart-arrow-down"></i></div>
@@ -298,22 +248,22 @@ $mostUsedPaymentMethod = $stmt->fetch(PDO::FETCH_ASSOC);
           <div class="stat-card">
             <div class="stat-icon ic-purple"><i class="fa-solid fa-star"></i></div>
             <div class="stat-label">Top Selling Product</div>
-            <div class="stat-value"><?= $topSellingProduct['product_name'] ?></div>
+            <div class="stat-value"><?= $topSellingProduct['product_name'] ?? 'N/A' ?></div>
           </div>
           <div class="stat-card">
             <div class="stat-icon ic-green"><i class="fa-solid fa-arrow-trend-down"></i></div>
             <div class="stat-label">Least Selling Product</div>
-            <div class="stat-value"><?= $leastSellingProduct['product_name'] ?></div>
+            <div class="stat-value"><?= $leastSellingProduct['product_name'] ?? 'N/A' ?></div>
           </div>
           <div class="stat-card">
             <div class="stat-icon ic-amber"><i class="fa-solid fa-box"></i></div>
             <div class="stat-label">Best Selling Category</div>
-            <div class="stat-value"><?= $bestSellingCategory['category_name'] ?></div>
+            <div class="stat-value"><?= $bestSellingCategory['category_name'] ?? 'N/A' ?></div>
           </div>
           <div class="stat-card">
             <div class="stat-icon ic-blue"><i class="fa-solid fa-users"></i></div>
             <div class="stat-label">Most Used Payment Method</div>
-            <div class="stat-value"><?= $mostUsedPaymentMethod['payment_method'] ?></div>
+            <div class="stat-value"><?= $mostUsedPaymentMethod['payment_method'] ?? 'N/A' ?></div>
           </div>
         </div>
         <div class="bottom-row" style="display: grid; grid-template-columns: 1.6fr 1.4fr; gap: 24px;">
@@ -490,6 +440,8 @@ $mostUsedPaymentMethod = $stmt->fetch(PDO::FETCH_ASSOC);
   <script src="../Assets/JavaScript/analytics/fetch_sales_product.js"></script>
   <script src="../Assets/JavaScript/analytics/fetch_sales_location.js"></script>
   <script src="../Assets/JavaScript/analytics/fetch_sales_payment_order.js"></script>
+  <script>let dots = '../';</script>
+  <script src="../Assets/JavaScript/notifications_admin.js"></script>
 </body>
 
 </html>

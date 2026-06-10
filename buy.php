@@ -1,5 +1,10 @@
 <?php
 session_start();
+if (!isset($_SESSION['user_id'])) {
+  // relative path back to login.php in parent folder
+  header("Location: User/log-in.php");
+  exit;
+}
 require_once 'Database/runQuery.php';
 $sql = "SELECT c.cart_id, c.quantity, p.product_id, p.product_name, p.price, p.image FROM cart c JOIN products p ON c.product_id = p.product_id WHERE c.user_id = ? ORDER BY c.created_at DESC;";
 $cartItems = runQuery($pdo, $sql, [$_SESSION['user_id']], true);

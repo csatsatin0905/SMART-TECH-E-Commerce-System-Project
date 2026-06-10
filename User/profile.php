@@ -1,3 +1,15 @@
+<?php
+session_start();
+if (!isset($_SESSION['user_id'])) {
+    // relative path back to login.php in parent folder
+    header("Location: log-in.php");
+    exit;
+}
+require_once '../Database/runQuery.php';
+$sql = "SELECT u.first_name, u.last_name, a.* FROM users u JOIN addresses a ON u.current_address_id = a.address_id WHERE u.user_id = ?";
+$resulta = runQuery($pdo, $sql, [$_SESSION['user_id']]);
+$user = $resulta->fetch();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -49,7 +61,7 @@
 
             <div class="user-box">
                 <i class="fa-solid fa-circle-user"></i>
-                <span id="sidebarName">User</span>
+                <span id="sidebarName"><?= htmlspecialchars($user['first_name'] . ' ' . $user['last_name']) ?></span>
             </div>
 
             <a href="profile.php" class="active">
@@ -76,7 +88,9 @@
         <main class="content">
 
             <div class="welcome-box">
-                <h1 id="welcomeText">Welcome back, User!</h1>
+                <h1 id="welcomeText">Welcome back,
+                    <?= htmlspecialchars($user['first_name'] . ' ' . $user['last_name']) ?>!
+                </h1>
                 <p>Manage your account information</p>
             </div>
 
@@ -84,13 +98,9 @@
 
                 <div class="profile-left">
                     <i class="fa-solid fa-circle-user big-icon"></i>
-                    <h2 id="profileName">User</h2>
+                    <h2 id="profileName"><?= htmlspecialchars($user['first_name'] . ' ' . $user['last_name']) ?></h2>
                 </div>
 
-                <button class="btn-primary" onclick="openEditModal()">
-                    <i class="fa-solid fa-pen"></i>
-                    Edit Profile
-                </button>
 
             </div>
 
@@ -98,22 +108,20 @@
 
                 <div class="info-row">
                     <span>Name:</span>
-                    <strong id="displayName">User</strong>
+                    <strong
+                        id="displayName"><?= htmlspecialchars($user['first_name'] . ' ' . $user['last_name']) ?></strong>
                 </div>
 
                 <div class="info-row">
                     <span>Phone Number:</span>
-                    <strong id="displayPhone">06967676711</strong>
+                    <strong id="displayPhone"><?= htmlspecialchars($user['phone']) ?></strong>
                 </div>
 
                 <div class="info-row">
-                    <span>Gender:</span>
-                    <strong id="displayGender">Male</strong>
-                </div>
-
-                <div class="info-row">
-                    <span>Date of Birth:</span>
-                    <strong id="displayDob">00/00/0000</strong>
+                    <span>Address:</span>
+                    <strong id="displayAddress">
+                        <?= htmlspecialchars($user['address_line'] . ', ' . $user['city'] . ', ' . $user['province'] . ', ' . $user['postal_code']) ?>
+                    </strong>
                 </div>
 
             </div>

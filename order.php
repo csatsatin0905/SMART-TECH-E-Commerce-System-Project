@@ -1,3 +1,11 @@
+<?php
+session_start();
+
+if (!isset($_SESSION['user_id'])) {
+  // relative path back to login.php in parent folder
+  header("Location: User/log-in.php");
+  exit;
+} ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -245,8 +253,6 @@
             </td>
             <td>
                 ${order.order_status.toLowerCase() !== 'delivered' ? '<button type="button" class="cancel-btn" onclick="cancelOrder(' + order.order_id + ')">Cancel</button>' : ''}
-                ${order.order_status.toLowerCase() === 'delivered' ? `<button type="button" class="review-btn" onclick="openReviewModal()">
-                <i class="fa-solid fa-comment"></i> Write Review</button>` : ''}
             </td>
         `;
         if (order.order_status.toLowerCase() !== 'delivered') {

@@ -645,14 +645,24 @@ body {
   color: #92400e;
 }
 
-.pill-process {
+.pill-processing {
   background: #dbeafe;
   color: #1e40af;
+}
+
+.pill-shipped {
+  background: #f3e8ff;
+  color: #4E0B99;
 }
 
 .pill-cancelled {
   background: #fee2e2;
   color: #991b1b;
+}
+
+.pill-delivered {
+  background: #d1fae5;
+  color: #065f46;
 }
 
 .pill-active {

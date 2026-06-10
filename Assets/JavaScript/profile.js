@@ -18,19 +18,6 @@ window.onload = function () {
 
     updateProfileUI();
 };
-
-// UPDATE UI
-function updateProfileUI() {
-    document.getElementById("displayName").innerText = profileData.name;
-    document.getElementById("displayPhone").innerText = profileData.phone;
-    document.getElementById("displayGender").innerText = profileData.gender;
-    document.getElementById("displayDob").innerText = profileData.dob;
-
-    document.getElementById("profileName").innerText = profileData.name;
-    document.getElementById("sidebarName").innerText = profileData.name;
-    document.getElementById("welcomeText").innerText = `Welcome back, ${profileData.name}!`;
-}
-
 // OPEN MODAL
 function openEditModal() {
     document.getElementById("editModal").style.display = "flex";
@@ -78,5 +65,5 @@ function closeLogoutModal() {
 }
 
 function confirmLogout() {
-    window.location.href = "log-in.php";
+    window.location.href = "../Actions/logout-process.php";
 }

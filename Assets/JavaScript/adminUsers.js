@@ -109,40 +109,6 @@ function showToast(msg, type = '') {
   setTimeout(() => t.className = 'toast', 3000);
 }
 
-// Get elements from the DOM
-const notifTrigger = document.getElementById('notifTrigger');
-const notifDropdown = document.getElementById('notifDropdown');
-const profileTrigger = document.getElementById('profileMenuTrigger');
-const profileMenu = document.getElementById('profileMenu');
-
-// Toggle Notification Center Dropdown
-if (notifTrigger && notifDropdown) {
-  notifTrigger.addEventListener('click', (e) => {
-    e.stopPropagation();
-    notifDropdown.classList.toggle('show');
-    if (profileMenu) profileMenu.classList.remove('show'); // Hide profile if open
-  });
-}
-
-// Toggle Profile Popover Menu
-if (profileTrigger && profileMenu) {
-  profileTrigger.addEventListener('click', (e) => {
-    e.stopPropagation();
-    profileMenu.classList.toggle('show');
-    if (notifDropdown) notifDropdown.classList.remove('show'); // Hide notifications if open
-  });
-}
-
-// Close active dropdowns automatically if clicking anywhere outside them
-document.addEventListener('click', (e) => {
-  if (notifDropdown && !notifDropdown.contains(e.target) && e.target !== notifTrigger) {
-    notifDropdown.classList.remove('show');
-  }
-  if (profileMenu && !profileMenu.contains(e.target) && !profileTrigger.contains(e.target)) {
-    profileMenu.classList.remove('show');
-  }
-});
-
 // Log out function
 function handleLogout() {
   // Closing profile menu popover
