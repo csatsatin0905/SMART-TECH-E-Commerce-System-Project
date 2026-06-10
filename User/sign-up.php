@@ -14,7 +14,7 @@ unset($_SESSION["reg"], $_SESSION["registration"]["firstName"], $_SESSION["regis
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="../Assets/CSS/log-sign--up.css">
   <title>Sign Up - Smart Tech</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="../node_modules/@fortawesome/fontawesome-free/css/all.min.css">
 </head>
 
 <body>

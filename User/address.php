@@ -49,7 +49,7 @@ $currentAddress = $stmt->fetch() ?? null;
     <title>Edit Address | Smart Tech</title>
 
     <link rel="stylesheet" href="../Assets/CSS/address.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="../node_modules/@fortawesome/fontawesome-free/css/all.min.css">
 
     <script src="../Assets/JavaScript/script.js" defer></script>
     <script src="../Assets/JavaScript/address.js" defer></script>

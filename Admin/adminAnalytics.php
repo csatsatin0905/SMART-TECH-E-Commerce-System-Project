@@ -118,8 +118,8 @@ $mostUsedPaymentMethod = $stmt->fetch(PDO::FETCH_ASSOC);
   <title>Dashboard - Smart Tech Admin</title>
   <link rel="stylesheet" href="../Assets/CSS/admin.css">
   <link rel="stylesheet" href="../Assets/CSS/adDashboard.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+  <link rel="stylesheet" href="../node_modules/@fortawesome/fontawesome-free/css/all.min.css">
+  <script src="../Assets/JavaScript/chart.umd.min.js"></script>
   <script src="../Assets/JavaScript/adminDashboard.js" defer></script>
   <script src="../Actions/Analytics/chart.umd.min.js" defer></script>
   <link rel="stylesheet" href="../Assets/CSS/notifications.css">

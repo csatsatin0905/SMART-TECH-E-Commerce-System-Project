@@ -7,7 +7,7 @@
   <title>Customers - Smart Tech Admin</title>
   <link rel="stylesheet" href="../Assets/CSS/admin.css">
   <link rel="stylesheet" href="../Assets/CSS/adUsers.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="../node_modules/@fortawesome/fontawesome-free/css/all.min.css">
   <link rel="stylesheet" href="../Assets/CSS/notifications.css">
   <script src="../Assets/JavaScript/adminUsers.js" defer></script>
 </head>
