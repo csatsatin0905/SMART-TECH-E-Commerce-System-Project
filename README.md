@@ -16,12 +16,11 @@ System Requirements
 Installation Steps
 Step 1 – Download or clone the project repository.
 Step 2 – Place the project folder inside the following directory:
-xampp/htdocs/
+xampp/htdocs
 Step 3 – Open the XAMPP Control Panel and start Apache and MySQL.
-Step 4 – Create a new database in phpMyAdmin.
-Step 5 – Configure the database credentials in:
-Database/db.php
-Step 6 – Run the following file to create the database tables:
-Database/initdb.php
-Step 7 – Access the system using the browser:
-http://localhost/SMART-TECH-E-Commerce-System-Project-main
+Step 4 – Create a new database in phpMyAdmin and name it smart_tech_db.
+Step 5 – Copy this link and paste it on the URL to create the database tables:
+http://localhost/SMART-TECH-E-Commerce-System-Project-main/Database/initdb.php
+Step 6 – Access the system using the browser:
+http://localhost/SMART-TECH-E-Commerce-System-Project-main/User/log-in.php
+
